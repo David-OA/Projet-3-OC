@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -33,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
         smiley_botton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 smiley_botton.setImageResource(R.drawable.smiley_sad);
+                smiley_botton.setBackgroundResource(R.color.faded_red);
             }
         });
 

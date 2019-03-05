@@ -11,14 +11,14 @@
     <ImageButton
         android:id="@+id/smiley_botton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="86dp"
-        android:src="@drawable/smiley_happy"
-        android:background="@color/light_sage"
         android:layout_alignParentLeft="true"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@color/light_sage"
+        android:src="@drawable/smiley_happy" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -40,6 +40,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="18dp"
             android:layout_marginLeft="18dp"
+            android:background="@null"
             android:src="@drawable/ic_note_add_black" />
 
         <ImageButton
@@ -49,6 +50,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="18dp"
+            android:background="@null"
             android:src="@drawable/ic_history_black" />
     </RelativeLayout>
 
