@@ -7,52 +7,158 @@
     android:orientation="vertical"
     tools:context=".history">
 
-    <ImageView
+    <LinearLayout
+        android:id="@+id/week"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@color/light_sage"
-        android:src="@drawable/ic_comment_black_48px"/>
+        android:orientation="vertical">
 
-    <ImageView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:text="Il y a une semaine" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="right"
+            android:src="@drawable/ic_comment_black_48px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sixdays"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/banana_yellow"
-        android:src="@drawable/ic_comment_black_48px"/>
+        android:orientation="vertical"
+        android:background="@color/light_sage">
 
-    <ImageView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:text="Il y a six jours" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="right"
+            android:src="@drawable/ic_comment_black_48px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fivedays"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/cornflower_blue_65"
-        android:src="@drawable/ic_comment_black_48px"/>
+        android:orientation="vertical"
+        android:background="@color/light_sage">
 
-    <ImageView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:text="Il y a cinq jours" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="right"
+            android:src="@drawable/ic_comment_black_48px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fourdays"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/warm_grey"
-        android:src="@drawable/ic_comment_black_48px"/>
+        android:orientation="vertical"
+        android:background="@color/light_sage">
 
-    <ImageView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:text="Il y a quatre jours" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="right"
+            android:src="@drawable/ic_comment_black_48px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/threedays"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/faded_red"
-        android:src="@drawable/ic_comment_black_48px"/>
+        android:orientation="vertical"
+        android:background="@color/light_sage">
 
-    <ImageView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:text="Il y a trois jours" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="right"
+            android:src="@drawable/ic_comment_black_48px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/beforeyesterday"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/light_sage"
-        android:src="@drawable/ic_comment_black_48px"/>
+        android:orientation="vertical"
+        android:background="@color/light_sage">
 
-    <ImageView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:text="Avant-hier" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="right"
+            android:src="@drawable/ic_comment_black_48px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/yesterday"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/banana_yellow"
-        android:src="@drawable/ic_comment_black_48px"/>
+        android:orientation="vertical"
+        android:background="@color/light_sage">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:text="Hier" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="right"
+            android:src="@drawable/ic_comment_black_48px" />
+    </LinearLayout>
+
 </LinearLayout>
