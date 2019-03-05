@@ -2,6 +2,7 @@ package com.oconte.david.moodtracker;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
     ImageButton smiley_botton;
     ImageButton note_button;
     ImageButton history_botton;
+
+    private static final String COMMENT = "COMMENT";
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +64,20 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.setPositiveButton("VALIDER", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int arg1) {
+                        
+                        sharedPreferences = getBaseContext().getSharedPreferences(COMMENT, MODE_PRIVATE);
+                        //sauvegarder le commentaire
+                        sharedPreferences
+                                .edit()
+                                .putString(COMMENT, "")
+                                .apply();
 
                     }
                 });
                 alertDialog.setNegativeButton("ANNULER", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int arg1) {
-
+                        Toast.makeText(MainActivity.this, "Pas d'avis", Toast.LENGTH_LONG).show();
                     }
                 });
                 alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
