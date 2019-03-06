@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MoodTracker</string>
+
+    <string name="toastTop"> Ca marche</string>
+    <string name="toastRight">La aussi</string>
+    <string name="toastLeft">toujours</string>
+    <string name="toastBottom">Parfait</string>
 </resources>
