@@ -29,20 +29,20 @@ public class HistoryMoodAdapter extends ArrayAdapter<ModelMood> {
         HistoryViewHolder viewHolder = (HistoryViewHolder) convertView.getTag();
         if(viewHolder == null){
             viewHolder = new HistoryViewHolder();
-            viewHolder.pseudo = (TextView) convertView.findViewById(R.id.pseudo);
+            viewHolder.title = (TextView) convertView.findViewById(R.id.title);
             viewHolder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
 
             convertView.setTag(viewHolder);
         }
 
         ModelMood modelMood = getItem(position);
-        viewHolder.pseudo.setText(modelMood.getPseudo());
+        viewHolder.title.setText(modelMood.getTitle());
 
 
         return convertView;
     }
     private class HistoryViewHolder {
-        public TextView pseudo;
+        public TextView title;
         public ImageView avatar;
     }
 }

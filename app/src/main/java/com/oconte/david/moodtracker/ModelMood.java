@@ -1,19 +1,19 @@
 package com.oconte.david.moodtracker;
 
 public class ModelMood {
-        private String pseudo;
+        private String title;
 
 
-    public ModelMood(int color, String pseudo) {
-            //this.color = color;
-            this.pseudo = pseudo;
+
+    public ModelMood(String title) {
+            this.title = title;
     }
 
-    public String getPseudo() {
-            return pseudo;
+    public String getTitle() {
+        return title;
     }
 
-    public void setPseudo(String pseudo) {
-            this.pseudo = pseudo;
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

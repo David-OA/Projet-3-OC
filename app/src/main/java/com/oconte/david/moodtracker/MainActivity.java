@@ -22,7 +22,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     ImageButton note_button;
-    ImageButton history_botton;
+    ImageButton history_button;
 
     ImageView smiley_swipe;
 
@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
         note_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(MainActivity.this, "youpi dou " , Toast.LENGTH_LONG ).show();
 
                 LayoutInflater factory = LayoutInflater.from(MainActivity.this);
                 final View alertDialogView = factory.inflate(R.layout.dialog_comment, null);
@@ -118,11 +117,11 @@ public class MainActivity extends AppCompatActivity {
         /////////////////////////////////////////////////////////////////////
         // Partie sur le boutton history                               /////
         ///////////////////////////////////////////////////////////////////
-        history_botton = (ImageButton) findViewById(R.id.history_botton);
-        history_botton.setOnClickListener(new View.OnClickListener() {
+        history_button = (ImageButton) findViewById(R.id.history_button);
+        history_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "tutu" , Toast.LENGTH_LONG ).show();
+
                 Intent intent = new Intent(MainActivity.this, history.class);
                 startActivity(intent);
             }

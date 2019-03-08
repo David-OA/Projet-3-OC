@@ -48,13 +48,13 @@ public class history extends AppCompatActivity {
 
         private List<ModelMood> genererModelMood(){
             List<ModelMood> ModelMoods = new ArrayList<ModelMood>();
-            ModelMoods.add(new ModelMood(Color.BLACK, "Il y a une semaine"));
-            ModelMoods.add(new ModelMood(Color.BLUE,"Il y a six jours"));
-            ModelMoods.add(new ModelMood(Color.GREEN,  "Il y a cinq jours"));
-            ModelMoods.add(new ModelMood(Color.RED, "Il y a quatre jours"));
-            ModelMoods.add(new ModelMood(Color.GRAY, "Il y a trois jours"));
-            ModelMoods.add(new ModelMood(Color.BLACK, "Avant-hier"));
-            ModelMoods.add(new ModelMood(Color.BLACK, "Hier"));
+            ModelMoods.add(new ModelMood("Il y a une semaine"));
+            ModelMoods.add(new ModelMood("Il y a six jours"));
+            ModelMoods.add(new ModelMood("Il y a cinq jours"));
+            ModelMoods.add(new ModelMood("Il y a quatre jours"));
+            ModelMoods.add(new ModelMood("Il y a trois jours"));
+            ModelMoods.add(new ModelMood("Avant-hier"));
+            ModelMoods.add(new ModelMood("Hier"));
 
             return ModelMoods;
         }

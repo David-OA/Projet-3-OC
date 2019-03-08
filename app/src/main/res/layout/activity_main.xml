@@ -46,7 +46,7 @@
             android:src="@drawable/ic_note_add_black" />
 
         <ImageButton
-            android:id="@+id/history_botton"
+            android:id="@+id/history_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
