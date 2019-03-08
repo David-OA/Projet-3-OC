@@ -2,6 +2,7 @@ package com.oconte.david.moodtracker;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,12 +27,6 @@ public class history extends AppCompatActivity {
     ImageButton yester_day;
 
     ListView mList_history_mood;
-    String[] prenoms = new String[]{
-            "Antoine", "Benoit", "Cyril", "David", "Eloise", "Florent",
-            "Gerard", "Hugo", "Ingrid", "Jonathan", "Kevin", "Logan",
-            "Mathieu", "Noemie", "Olivia", "Philippe", "Quentin", "Romain",
-            "Sophie", "Tristan", "Ulric", "Vincent", "Willy", "Xavier", "Yann", "Zoé"
-    };
 
 
     @Override
@@ -47,32 +42,30 @@ public class history extends AppCompatActivity {
                 //android.R.layout.simple_list_item_1 est une vue disponible de base dans le SDK android,
                 //Contenant une TextView avec comme identifiant "@android:id/text1"
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(history.this, android.R.layout.simple_list_item_1, prenoms);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(history.this, android.R.layout.simple_list_item_1);
             mList_history_mood.setAdapter(adapter);
         }
 
         private List<ModelMood> genererModelMood(){
-                List<ModelMood> tweets = new ArrayList<ModelMood>();
-                tweets.add(new ModelMood(Color.BLACK, "Florent", "Mon premier tweet !"));
-                tweets.add(new ModelMood(Color.BLUE, "Kevin", "C'est ici que ça se passe !"));
-                tweets.add(new ModelMood(Color.GREEN, "Logan", "Que c'est beau..."));
-                tweets.add(new ModelMood(Color.RED, "Mathieu", "Il est quelle heure ??"));
-                tweets.add(new ModelMood(Color.GRAY, "Willy", "On y est presque"));
-                return tweets;
+            List<ModelMood> ModelMoods = new ArrayList<ModelMood>();
+            ModelMoods.add(new ModelMood(Color.BLACK, "Il y a une semaine"));
+            ModelMoods.add(new ModelMood(Color.BLUE,"Il y a six jours"));
+            ModelMoods.add(new ModelMood(Color.GREEN,  "Il y a cinq jours"));
+            ModelMoods.add(new ModelMood(Color.RED, "Il y a quatre jours"));
+            ModelMoods.add(new ModelMood(Color.GRAY, "Il y a trois jours"));
+            ModelMoods.add(new ModelMood(Color.BLACK, "Avant-hier"));
+            ModelMoods.add(new ModelMood(Color.BLACK, "Hier"));
+
+            return ModelMoods;
         }
 
         private void viewListModelMood(){
-                List<ModelMood> tweets = genererModelMood();
+            List<ModelMood> ModelMoods = genererModelMood();
 
-            HistoryMoodAdapter adapter = new HistoryMoodAdapter(history.this, tweets);
+            HistoryMoodAdapter adapter = new HistoryMoodAdapter(history.this, ModelMoods);
             mList_history_mood.setAdapter(adapter);
         }
         /*
-
-        List<history> histories = genererhistories();
-        HistoryMoodAdapter adapter = new HistoryMoodAdapter(history.this, histories);
-        mList_history_mood.setAdapter(adapter);*/
-
 
         /////////////////////////////////////////////////////////
         // Partie sur les boutons commentaire                 //

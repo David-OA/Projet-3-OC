@@ -2,6 +2,7 @@ package com.oconte.david.moodtracker;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,21 +30,19 @@ public class HistoryMoodAdapter extends ArrayAdapter<ModelMood> {
         if(viewHolder == null){
             viewHolder = new HistoryViewHolder();
             viewHolder.pseudo = (TextView) convertView.findViewById(R.id.pseudo);
-            viewHolder.text = (TextView) convertView.findViewById(R.id.text);
             viewHolder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
+
             convertView.setTag(viewHolder);
         }
 
         ModelMood modelMood = getItem(position);
         viewHolder.pseudo.setText(modelMood.getPseudo());
-        viewHolder.text.setText(modelMood.getText());
-        viewHolder.avatar.setImageDrawable(new ColorDrawable(modelMood.getColor()));
+
 
         return convertView;
     }
     private class HistoryViewHolder {
         public TextView pseudo;
-        public TextView text;
         public ImageView avatar;
     }
 }
