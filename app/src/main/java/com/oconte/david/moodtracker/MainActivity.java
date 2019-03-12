@@ -4,20 +4,17 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Gallery;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import static com.oconte.david.moodtracker.Mood.PREF_KEY_COMMENT0;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,9 +22,9 @@ public class MainActivity extends AppCompatActivity {
     ImageButton history_button;
 
     ImageView smiley_swipe;
+    //TextView tvSwipDescription;
 
-    private static final String COMMENT = "COMMENT";
-    SharedPreferences sharedPreferences;
+    SharedPreferences mPreferences;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -36,22 +33,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //////////////////////////////////////////////////////////////////////
-        ///        Partie sur le swipe                                    ///
-        ////////////////////////////////////////////////////////////////////
-
         initializeView();
         smiley_swipe.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeTop() {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastTop), Toast.LENGTH_SHORT).show();
-                //smiley_swipe.setImageResource(R.drawable.smiley_normal);
-                //smiley_swipe.setBackgroundResource(R.color.cornflower_blue_65);
-
-                //smiley_swipe.setImageResource(R.drawable.smiley_disappointed);
-                //smiley_swipe.setBackgroundResource(R.color.warm_grey);
-
-                //smiley_swipe.setImageResource(R.drawable.smiley_sad);
-                //smiley_swipe.setBackgroundResource(R.color.faded_red);
             }
             public void onSwipeRight() {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastRight), Toast.LENGTH_SHORT).show();
@@ -61,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
             }
             public void onSwipeBottom() {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastBottom), Toast.LENGTH_SHORT).show();
-                //smiley_swipe.setImageResource(R.drawable.smiley_super_happy);
-                //smiley_swipe.setBackgroundResource(R.color.banana_yellow);
             }
         });
 
@@ -87,14 +70,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int arg1) {
 
-                        sharedPreferences = getBaseContext().getSharedPreferences(COMMENT, MODE_PRIVATE);
+                        mPreferences = getBaseContext().getSharedPreferences(PREF_KEY_COMMENT0, MODE_PRIVATE);
                         //sauvegarder le commentaire
-                        sharedPreferences
+                        mPreferences
                                 .edit()
-                                .putString(COMMENT, "")
+                                .putString(PREF_KEY_COMMENT0, "")
                                 .apply();
 
-                        // String COMMENT = preferences.getString(COMMENT, "")
                     }
                 });
                 alertDialog.setNegativeButton("ANNULER", new DialogInterface.OnClickListener() {
@@ -128,7 +110,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //smiley_swipe = (ImageView) findViewById(R.id.smiley_swipe);
     private void initializeView() {
-        smiley_swipe = (ImageView) findViewById(R.id.smiley_swipe);
+        smiley_swipe =(ImageView) findViewById(R.id.smiley_swipe);
     }
 }

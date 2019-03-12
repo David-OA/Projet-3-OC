@@ -21,12 +21,12 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="10dp"
-            tools:text="Pseudo" />
+            tools:text="Title" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/avatar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
@@ -34,6 +34,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginRight="18dp"
             android:layout_marginBottom="18dp"
+            android:background="@null"
             android:src="@drawable/ic_comment_black_48px" />
     </RelativeLayout>
 </RelativeLayout>

@@ -5,4 +5,5 @@
     <string name="toastRight">La aussi</string>
     <string name="toastLeft">toujours</string>
     <string name="toastBottom">Parfait</string>
+    <string name="tvswipDescription">tvswipDescription</string>
 </resources>
