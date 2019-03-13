@@ -14,13 +14,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class HistoryMoodAdapter extends ArrayAdapter<ModelMood> {
 
+
+
+    ImageButton avatar;
+
     public HistoryMoodAdapter(Context context, List<ModelMood> ModelMoods) {
         super(context, 0, ModelMoods);
+
     }
 
     @Override
@@ -36,12 +43,20 @@ public class HistoryMoodAdapter extends ArrayAdapter<ModelMood> {
             viewHolder.title = (TextView) convertView.findViewById(R.id.title);
             viewHolder.avatar = (ImageButton) convertView.findViewById(R.id.avatar);
 
+
             convertView.setTag(viewHolder);
         }
 
         ModelMood modelMood = getItem(position);
         viewHolder.title.setText(modelMood.getTitle());
 
+
+        avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(history.this, "miam", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return convertView;
     }
@@ -50,12 +65,4 @@ public class HistoryMoodAdapter extends ArrayAdapter<ModelMood> {
         public TextView title;
         public ImageButton avatar;
     }
-
-    /*ImageButton avatar = (ImageButton) ImageButton.findViewById(R.id.avatar);
-    avatar.setOnClickListener(new View.OnClickListener() {
-       @Override
-       public void onClick(View v) {
-            Toast.makeText(history.this, "miam", Toast.LENGTH_SHORT).show();
-        }
-    });*/
 }

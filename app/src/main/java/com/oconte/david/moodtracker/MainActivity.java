@@ -1,12 +1,14 @@
 package com.oconte.david.moodtracker;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -14,7 +16,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.oconte.david.moodtracker.Mood.PREF_KEY_COMMENT0;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     ImageButton history_button;
 
     ImageView smiley_swipe;
-    //TextView tvSwipDescription;
 
     SharedPreferences mPreferences;
 
@@ -36,16 +44,11 @@ public class MainActivity extends AppCompatActivity {
         initializeView();
         smiley_swipe.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeTop() {
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastTop), Toast.LENGTH_SHORT).show();
+
             }
-            public void onSwipeRight() {
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastRight), Toast.LENGTH_SHORT).show();
-            }
-            public void onSwipeLeft() {
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastLeft), Toast.LENGTH_SHORT).show();
-            }
+
             public void onSwipeBottom() {
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastBottom), Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -70,12 +73,29 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int arg1) {
 
-                        mPreferences = getBaseContext().getSharedPreferences(PREF_KEY_COMMENT0, MODE_PRIVATE);
+                        Type listType = new TypeToken<ArrayList<ModelMood>>() {}.getType();
+                        ArrayList<ModelMood> modelMoods = new Gson().fromJson("jsoonMood.json", listType);
+                        for (ModelMood modelMood : modelMoods) {
+                            Log.e("MainActivity", modelMood.toString());
+                        }
+
+                            /*gson.fromJson(json,new TypeToken<List<Mood>>() {}.getType());
+                            SharedPreferences mPreferences = context.getmPreferences("PREF_KEY_COMMENT0", Context.MODE_PRIVATE);
+                            Gson gson = new Gson();
+
+                            List<Mood> moods = comment; //on veut sauvegarder cet objet
+
+                            mPreferences.edit()
+                                    .putString("Mood", gson.toJson(moods))
+                                    .apply();*/
+
+
+                       /* mPreferences = getBaseContext().getSharedPreferences(PREF_KEY_COMMENT0, MODE_PRIVATE);
                         //sauvegarder le commentaire
                         mPreferences
                                 .edit()
                                 .putString(PREF_KEY_COMMENT0, "")
-                                .apply();
+                                .apply();*/
 
                     }
                 });
@@ -110,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //smiley_swipe = (ImageView) findViewById(R.id.smiley_swipe);
     private void initializeView() {
         smiley_swipe =(ImageView) findViewById(R.id.smiley_swipe);
     }

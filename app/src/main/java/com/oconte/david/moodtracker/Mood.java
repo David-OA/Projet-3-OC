@@ -4,9 +4,29 @@ import android.content.SharedPreferences;
 
 public class Mood {
 
+    private String comment;
+    private String color;
+    private String mood;
+
+    public Mood() {}
+
+    public Mood(String comment, String color, String mood) {
+        this.comment = comment;
+        this.color = color;
+        this.mood = mood;
+    }
+
+    @Override
+    public String toString() {
+        return "Mood [ " +
+                "comment='" + comment +'\'' +
+                "color='" + color + '\'' +
+                "mood='" + mood + '\'' +
+                ']';
+    }
     //sauvegarde de la date et de l'humeur et commentaires
 
-    SharedPreferences mPreferences;
+    /*SharedPreferences mPreferences;
 
     public static final String PREF_KEY_COMMENT0 = "PREF_KEY_COMMENT0";
     public static final String PREF_KEY_COMMENT1 = "PREF_KEY_COMMENT1";
@@ -26,6 +46,6 @@ public class Mood {
 
     public SharedPreferences getmPreferences() {
         return mPreferences;
-    }
+    }*/
 
 }
