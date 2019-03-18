@@ -76,7 +76,7 @@ public class history extends AppCompatActivity {
         }
 
 
-    @Override
+    /*@Override
     public boolean onCreateOptionMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.history_menu_stat, menu);
         return true;
@@ -92,14 +92,33 @@ public class history extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-          /*  SharedPreferences mPreferences = context.getSharedPreferences("PREFS", Context.MODE_PRIVATE);
-            Gson gson = new Gson();
+    rowLayout = (RelativeLayout)customView.findViewById(R.id.Row_layout);
+        moodPos = singleMood.getMood();
+        height = deviceHeight/7;
+        width = deviceWidth/5;
+        switch (moodPos){
+            case 0: color = Color.parseColor("#ffde3c50");
+                rowWidth = width * 1;
+                break;
+            case 1: color = Color.parseColor("#ff9b9b9b");
+                rowWidth = width * 2;
+                break;
+            case 2: color = Color.parseColor("#a5468ad9");
+                rowWidth = width * 3;
+                break;
+            case 3: color = Color.parseColor("#ffb8e986");
+                rowWidth = width * 4;
+                break;
+            case 4: color = Color.parseColor("#fff9ec4f");
+                rowWidth = width * 5;
+                break;
+            default: color = Color.BLACK;
+                rowWidth = 0;
+                break;
+        }
+        rowLayout.setBackgroundColor(color);
+        resizeView(customView, rowWidth, height-10);
 
-            String json = mPreferences.getString("users",null);
-
-            List<Mood> users = null;
-        if(json != null)
-            users = gson.fromJson(json,new TypeToken<List<Mood>>() {}.getType());*/
-
+    return customView;*/
 }
 

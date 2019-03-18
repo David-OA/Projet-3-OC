@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +23,15 @@ import java.util.List;
 
 public class HistoryMoodAdapter extends ArrayAdapter<ModelMood> {
 
-
+    Context context;
 
     ImageButton avatar;
 
+    private SharedPreferences mPreferences;
+
     public HistoryMoodAdapter(Context context, List<ModelMood> ModelMoods) {
         super(context, 0, ModelMoods);
-
+        this.context = context;
     }
 
     @Override
@@ -45,16 +49,19 @@ public class HistoryMoodAdapter extends ArrayAdapter<ModelMood> {
 
 
             convertView.setTag(viewHolder);
+
         }
 
         ModelMood modelMood = getItem(position);
         viewHolder.title.setText(modelMood.getTitle());
 
-
-        avatar.setOnClickListener(new View.OnClickListener() {
+        convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(history.this, "miam", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"mima" , Toast.LENGTH_SHORT).show();
+                Gson gson = new Gson();
+                String json = mPreferences.getString("Mood", "");
+                Mood mood = gson.fromJson(json, Mood.class);
             }
         });
 

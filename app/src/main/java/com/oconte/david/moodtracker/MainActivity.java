@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,9 +31,32 @@ public class MainActivity extends AppCompatActivity {
     ImageButton note_button;
     ImageButton history_button;
 
+
+    // Variable pour le swipe
+
+    private RelativeLayout mColorSwipe;
+    private ImageView mSmileySwipe;
+
+    public int [] smileySwipe = new int [] {
+            R.drawable.smiley_happy,
+            R.drawable.smiley_super_happy,
+            R.drawable.smiley_normal,
+            R.drawable.smiley_disappointed,
+            R.drawable.smiley_sad
+    };
+
+    public int [] colorSwipe = new int[] {
+            R.color.light_sage,
+            R.color.banana_yellow,
+            R.color.cornflower_blue_65,
+            R.color.warm_grey,
+            R.color.faded_red
+    };
+    private int moodSwipe = 3;
     ImageView smiley_swipe;
 
-    SharedPreferences mPreferences;
+
+    public SharedPreferences mPreferences;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -41,14 +65,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mColorSwipe = findViewById(R.id.smileycolor);
+        mSmileySwipe = findViewById(R.id.smiley_swipe);
+
+        mColorSwipe.setBackgroundColor(getResources().getColor(colorSwipe[moodSwipe]));
+        mSmileySwipe.setImageResource(smileySwipe[moodSwipe]);
+
         initializeView();
         smiley_swipe.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeTop() {
-
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastTop), Toast.LENGTH_SHORT).show();
+                if (moodSwipe < 4) {
+                    moodSwipe++;
+                    setMoodsScreen();
+                }
             }
-
+            public void onSwipeRight() {
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastRight), Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeLeft() {
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastLeft), Toast.LENGTH_SHORT).show();
+            }
             public void onSwipeBottom() {
-
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastBottom), Toast.LENGTH_SHORT).show();
+                if (moodSwipe > 0) {
+                    moodSwipe--;
+                    setMoodsScreen();
+                }
             }
         });
 
@@ -73,29 +116,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int arg1) {
 
-                        Type listType = new TypeToken<ArrayList<ModelMood>>() {}.getType();
-                        ArrayList<ModelMood> modelMoods = new Gson().fromJson("jsoonMood.json", listType);
-                        for (ModelMood modelMood : modelMoods) {
-                            Log.e("MainActivity", modelMood.toString());
-                        }
-
-                            /*gson.fromJson(json,new TypeToken<List<Mood>>() {}.getType());
-                            SharedPreferences mPreferences = context.getmPreferences("PREF_KEY_COMMENT0", Context.MODE_PRIVATE);
-                            Gson gson = new Gson();
-
-                            List<Mood> moods = comment; //on veut sauvegarder cet objet
-
-                            mPreferences.edit()
-                                    .putString("Mood", gson.toJson(moods))
-                                    .apply();*/
-
-
-                       /* mPreferences = getBaseContext().getSharedPreferences(PREF_KEY_COMMENT0, MODE_PRIVATE);
-                        //sauvegarder le commentaire
-                        mPreferences
-                                .edit()
-                                .putString(PREF_KEY_COMMENT0, "")
-                                .apply();*/
+                        SharedPreferences mPreferences = getPreferences(MODE_PRIVATE);
+                        SharedPreferences.Editor prefsEditor = mPreferences.edit();
+                        Mood mood = new Mood();
+                        Gson gson = new Gson();
+                        String json = gson.toJson(mood);
+                        prefsEditor.putString("MyMood", json);
+                        prefsEditor.commit();
 
                     }
                 });
@@ -123,12 +150,31 @@ public class MainActivity extends AppCompatActivity {
         history_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(MainActivity.this, history.class);
                 startActivity(intent);
             }
         });
     }
+
+    private void setMoodsScreen() {
+        mColorSwipe.setBackgroundColor(getResources().getColor(colorSwipe[moodSwipe]));
+        mSmileySwipe.setImageResource(smileySwipe[moodSwipe]);
+    }
+
+    /*Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.HOUR_OF_DAY, 19);
+        calendar.set(Calendar.MINUTE, 55);
+        calendar.set(Calendar.SECOND, 50);
+
+    Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+    PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        assert alarmManager != null;
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+    }*/
+
+
 
     private void initializeView() {
         smiley_swipe =(ImageView) findViewById(R.id.smiley_swipe);
