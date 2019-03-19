@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     ImageView smiley_swipe;
 
 
-    public SharedPreferences mPreferences;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -74,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         initializeView();
         smiley_swipe.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeTop() {
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastTop), Toast.LENGTH_SHORT).show();
                 if (moodSwipe < 4) {
                     moodSwipe++;
                     setMoodsScreen();
@@ -87,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastLeft), Toast.LENGTH_SHORT).show();
             }
             public void onSwipeBottom() {
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastBottom), Toast.LENGTH_SHORT).show();
                 if (moodSwipe > 0) {
                     moodSwipe--;
                     setMoodsScreen();
@@ -117,12 +114,12 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int arg1) {
 
                         SharedPreferences mPreferences = getPreferences(MODE_PRIVATE);
-                        SharedPreferences.Editor prefsEditor = mPreferences.edit();
+                        SharedPreferences.Editor editor = mPreferences.edit();
                         Mood mood = new Mood();
                         Gson gson = new Gson();
                         String json = gson.toJson(mood);
-                        prefsEditor.putString("MyMood", json);
-                        prefsEditor.commit();
+                        editor.putString("Mood", json);
+                        editor.apply();
 
                     }
                 });

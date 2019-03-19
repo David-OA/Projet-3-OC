@@ -58,7 +58,7 @@ public class HistoryMoodAdapter extends ArrayAdapter<ModelMood> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"mima" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,mPreferences.getString("Mood", "") , Toast.LENGTH_SHORT).show();
                 Gson gson = new Gson();
                 String json = mPreferences.getString("Mood", "");
                 Mood mood = gson.fromJson(json, Mood.class);

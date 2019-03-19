@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -90,9 +91,9 @@ public class history extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
-    rowLayout = (RelativeLayout)customView.findViewById(R.id.Row_layout);
+    /*row_mood = (RelativeLayout)customView.findViewById(R.id.row_mood);
         moodPos = singleMood.getMood();
         height = deviceHeight/7;
         width = deviceWidth/5;
