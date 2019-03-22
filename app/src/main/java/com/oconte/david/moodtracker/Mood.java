@@ -10,7 +10,7 @@ public class Mood {
     //private int mood;
     //Date date;
 
-    public Mood() {
+    public Mood(String comment) {
         this.comment = comment;
         //this.mood = mood;
         //this.date = date;

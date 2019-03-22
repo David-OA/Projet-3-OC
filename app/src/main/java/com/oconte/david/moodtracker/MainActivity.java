@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -38,23 +39,26 @@ public class MainActivity extends AppCompatActivity {
     private ImageView mSmileySwipe;
 
     public int [] smileySwipe = new int [] {
-            R.drawable.smiley_happy,
             R.drawable.smiley_super_happy,
+            R.drawable.smiley_happy,
             R.drawable.smiley_normal,
             R.drawable.smiley_disappointed,
             R.drawable.smiley_sad
     };
 
     public int [] colorSwipe = new int[] {
-            R.color.light_sage,
             R.color.banana_yellow,
+            R.color.light_sage,
             R.color.cornflower_blue_65,
             R.color.warm_grey,
             R.color.faded_red
     };
-    private int moodSwipe = 3;
+    private int moodSwipe = 1;
     ImageView smiley_swipe;
 
+
+    // variables pour les sauvegardes
+    public static final String PREF_KEY_COMMENT = "PREF_KEY_COMMENT";
 
 
 
@@ -78,12 +82,12 @@ public class MainActivity extends AppCompatActivity {
                     setMoodsScreen();
                 }
             }
+
             public void onSwipeRight() {
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastRight), Toast.LENGTH_SHORT).show();
             }
             public void onSwipeLeft() {
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.toastLeft), Toast.LENGTH_SHORT).show();
             }
+
             public void onSwipeBottom() {
                 if (moodSwipe > 0) {
                     moodSwipe--;
@@ -113,9 +117,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int arg1) {
 
-                        SharedPreferences mPreferences = getPreferences(MODE_PRIVATE);
+
+                        SharedPreferences mPreferences = getSharedPreferences("Mood",MODE_PRIVATE);
                         SharedPreferences.Editor editor = mPreferences.edit();
-                        Mood mood = new Mood();
+
+                        EditText mComment = (EditText)findViewById(R.id.dialogComment);
+                        //String mood = mComment.getText().toString();
+                        Mood mood = new Mood(mComment.getText().toString());
                         Gson gson = new Gson();
                         String json = gson.toJson(mood);
                         editor.putString("Mood", json);
@@ -138,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
-
 
         /////////////////////////////////////////////////////////////////////
         // Partie sur le boutton history                               /////

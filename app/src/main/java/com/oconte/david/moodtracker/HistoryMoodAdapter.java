@@ -55,13 +55,14 @@ public class HistoryMoodAdapter extends ArrayAdapter<ModelMood> {
         ModelMood modelMood = getItem(position);
         viewHolder.title.setText(modelMood.getTitle());
 
-        convertView.setOnClickListener(new View.OnClickListener() {
+        viewHolder.avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,mPreferences.getString("Mood", "") , Toast.LENGTH_SHORT).show();
+                SharedPreferences mPreferences = context.getSharedPreferences("Mood", Context.MODE_PRIVATE);
                 Gson gson = new Gson();
                 String json = mPreferences.getString("Mood", "");
                 Mood mood = gson.fromJson(json, Mood.class);
+                Toast.makeText(context,mood.getComment(), Toast.LENGTH_SHORT).show();
             }
         });
 

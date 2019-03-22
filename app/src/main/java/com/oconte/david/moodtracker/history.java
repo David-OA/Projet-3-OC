@@ -41,6 +41,7 @@ public class history extends AppCompatActivity {
 
     ImageButton avatar;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,33 +94,5 @@ public class history extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }*/
 
-    /*row_mood = (RelativeLayout)customView.findViewById(R.id.row_mood);
-        moodPos = singleMood.getMood();
-        height = deviceHeight/7;
-        width = deviceWidth/5;
-        switch (moodPos){
-            case 0: color = Color.parseColor("#ffde3c50");
-                rowWidth = width * 1;
-                break;
-            case 1: color = Color.parseColor("#ff9b9b9b");
-                rowWidth = width * 2;
-                break;
-            case 2: color = Color.parseColor("#a5468ad9");
-                rowWidth = width * 3;
-                break;
-            case 3: color = Color.parseColor("#ffb8e986");
-                rowWidth = width * 4;
-                break;
-            case 4: color = Color.parseColor("#fff9ec4f");
-                rowWidth = width * 5;
-                break;
-            default: color = Color.BLACK;
-                rowWidth = 0;
-                break;
-        }
-        rowLayout.setBackgroundColor(color);
-        resizeView(customView, rowWidth, height-10);
-
-    return customView;*/
 }
 
