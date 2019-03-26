@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     // variables pour les sauvegardes
-    //public static final String PREF_KEY_COMMENT = "PREF_KEY_COMMENT";
+
     EditText mComment;
 
 
@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
         /*private void insertMood() {
 
+
         }*/
 
         /////////////////////////////////////////////////////////////////////
@@ -181,18 +182,6 @@ public class MainActivity extends AppCompatActivity {
         mSmileySwipe.setImageResource(smileySwipe[moodSwipe]);
     }
 
-    /*Calendar calendar = Calendar.getInstance();
-
-        calendar.set(Calendar.HOUR_OF_DAY, 19);
-        calendar.set(Calendar.MINUTE, 55);
-        calendar.set(Calendar.SECOND, 50);
-
-    Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
-    PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-    AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        assert alarmManager != null;
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-    }*/
 
 
     private void initializeView() {

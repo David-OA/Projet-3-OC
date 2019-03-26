@@ -84,6 +84,8 @@ public class history extends AppCompatActivity {
 
             ModelMoods.add(new ModelMood("Don't let the noise of others' opinion drown out your own inner voice by Steve jobs"));
 
+
+
             ModelMoods.add(new ModelMood("Il y a une semaine"));
             ModelMoods.add(new ModelMood("Il y a six jours"));
             ModelMoods.add(new ModelMood("Il y a cinq jours"));
