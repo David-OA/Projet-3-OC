@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     EditText mComment;
 
 
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
         mColorSwipe.setBackgroundColor(getResources().getColor(colorSwipe[moodSwipe]));
         mSmileySwipe.setImageResource(smileySwipe[moodSwipe]);
 
-        //Calendar calendar = Calendar.getInstance();
-        //String currentDate = DateFormat.getDateInstance().format(calendar.getTime());
+        Calendar calendar = Calendar.getInstance();
+        //String Date = DateFormat.getDateInstance().format(calendar.getTime());
 
         //SimpleDateFormat
 
@@ -131,10 +132,12 @@ public class MainActivity extends AppCompatActivity {
                         SharedPreferences mPreferences = getSharedPreferences("Mood",MODE_PRIVATE);
                         SharedPreferences.Editor editor = mPreferences.edit();
 
+
+
                         String comment = mComment.getText().toString(); //
                         mComment.getText();
 
-                        Mood mood = new Mood (comment);
+                        Mood mood = new Mood (comment, date, mood);
                         Gson gson = new Gson();
                         String json = gson.toJson(mood);
 
@@ -160,7 +163,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         /*private void insertMood() {
-
+            setMoodsScreen();
+            currentDate;
 
         }*/
 

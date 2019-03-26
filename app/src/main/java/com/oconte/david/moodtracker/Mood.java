@@ -7,12 +7,12 @@ import java.util.Date;
 public class Mood {
 
     private String comment;
-    //private int mood;
+    private int mood;
     Date date;
 
-    protected Mood(String comment) {
+    protected Mood(String comment, Date date, int mood) {
         this.comment = comment;
-        //this.mood = mood;
+        this.mood = mood;
         this.date = date;
     }
 
@@ -24,13 +24,13 @@ public class Mood {
         this.comment = comment;
     }
 
-    /*public int getMood() {
+    public int getMood() {
         return mood;
     }
 
     public void setMood(int mood) {
         this.mood = mood;
-    }*/
+    }
 
     public Date getDate() {
         return date;
