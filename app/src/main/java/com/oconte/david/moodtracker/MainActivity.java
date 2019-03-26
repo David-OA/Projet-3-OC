@@ -23,7 +23,10 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -58,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     // variables pour les sauvegardes
-    public static final String PREF_KEY_COMMENT = "PREF_KEY_COMMENT";
-
+    //public static final String PREF_KEY_COMMENT = "PREF_KEY_COMMENT";
+    EditText mComment;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -68,11 +71,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         mColorSwipe = findViewById(R.id.smileycolor);
         mSmileySwipe = findViewById(R.id.smiley_swipe);
 
         mColorSwipe.setBackgroundColor(getResources().getColor(colorSwipe[moodSwipe]));
         mSmileySwipe.setImageResource(smileySwipe[moodSwipe]);
+
+        //Calendar calendar = Calendar.getInstance();
+        //String currentDate = DateFormat.getDateInstance().format(calendar.getTime());
+
+        //SimpleDateFormat
 
         initializeView();
         smiley_swipe.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
@@ -108,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
                 LayoutInflater factory = LayoutInflater.from(MainActivity.this);
                 final View alertDialogView = factory.inflate(R.layout.dialog_comment, null);
 
+                final EditText mComment = (EditText) alertDialogView.findViewById(R.id.dialogComment); // je précise ou trouver la zone de saisie et la vue
+
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
                 alertDialog.setMessage("Commentaire");
 
@@ -117,15 +128,16 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int arg1) {
 
-
                         SharedPreferences mPreferences = getSharedPreferences("Mood",MODE_PRIVATE);
                         SharedPreferences.Editor editor = mPreferences.edit();
 
-                        EditText mComment = (EditText)findViewById(R.id.dialogComment);
-                        //String mood = mComment.getText().toString();
-                        Mood mood = new Mood(mComment.getText().toString());
+                        String comment = mComment.getText().toString(); //
+                        mComment.getText();
+
+                        Mood mood = new Mood (comment);
                         Gson gson = new Gson();
                         String json = gson.toJson(mood);
+
                         editor.putString("Mood", json);
                         editor.apply();
 
@@ -146,6 +158,10 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
+
+        /*private void insertMood() {
+
+        }*/
 
         /////////////////////////////////////////////////////////////////////
         // Partie sur le boutton history                               /////
@@ -177,7 +193,6 @@ public class MainActivity extends AppCompatActivity {
         assert alarmManager != null;
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }*/
-
 
 
     private void initializeView() {

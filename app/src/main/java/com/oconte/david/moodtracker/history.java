@@ -49,6 +49,24 @@ public class history extends AppCompatActivity {
 
             mList_history_mood = (ListView) findViewById(R.id.list_history_mood);
             viewListModelMood();
+
+        }
+
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+            getMenuInflater().inflate(R.menu.history_menu_stat, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int i = item.getItemId();
+            if(i == R.id.stat_mood) {
+                Intent activity_statistics = new Intent(this,statistics.class );
+                startActivity(activity_statistics);
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
         }
 
         private void viewListName(){
@@ -59,6 +77,13 @@ public class history extends AppCompatActivity {
 
         private List<ModelMood> genererModelMood(){
             List<ModelMood> ModelMoods = new ArrayList<ModelMood>();
+
+            ModelMoods.add(new ModelMood("Hum plus facile à dire qu'à faire"));
+
+            ModelMoods.add(new ModelMood("Pffff tjrs pas çà !!!!!!!!!!!!!!!!!!!"));
+
+            ModelMoods.add(new ModelMood("Don't let the noise of others' opinion drown out your own inner voice by Steve jobs"));
+
             ModelMoods.add(new ModelMood("Il y a une semaine"));
             ModelMoods.add(new ModelMood("Il y a six jours"));
             ModelMoods.add(new ModelMood("Il y a cinq jours"));
@@ -78,21 +103,7 @@ public class history extends AppCompatActivity {
         }
 
 
-    /*@Override
-    public boolean onCreateOptionMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.history_menu_stat, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionItemSelected(MenuItem item) {
-        int i = item.getItemId();
-        if(i == R.id.stat_mood) {
-                Intent activity_statistics = new Intent(this,statistics.class );
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
 
 }
 

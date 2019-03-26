@@ -1,6 +1,6 @@
 package com.oconte.david.moodtracker;
 
-import android.content.SharedPreferences;
+import android.widget.EditText;
 
 import java.util.Date;
 
@@ -8,15 +8,15 @@ public class Mood {
 
     private String comment;
     //private int mood;
-    //Date date;
+    Date date;
 
-    public Mood(String comment) {
+    protected Mood(String comment) {
         this.comment = comment;
         //this.mood = mood;
-        //this.date = date;
+        this.date = date;
     }
 
-    public String getComment() {
+    protected String getComment() {
         return comment;
     }
 
@@ -32,11 +32,11 @@ public class Mood {
         this.mood = mood;
     }*/
 
-    /*public Date getDate() {
+    public Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
-    }*/
+    }
 }
