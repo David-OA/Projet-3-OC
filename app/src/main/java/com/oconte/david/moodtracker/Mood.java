@@ -6,11 +6,12 @@ import java.util.Date;
 
 public class Mood {
 
+
     private String comment;
     private int mood;
     Date date;
 
-    protected Mood(String comment, Date date, int mood) {
+    protected Mood(String comment, int mood, Date date) {
         this.comment = comment;
         this.mood = mood;
         this.date = date;

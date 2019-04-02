@@ -27,6 +27,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "CommitPrefEdits"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,12 +133,10 @@ public class MainActivity extends AppCompatActivity {
                         SharedPreferences mPreferences = getSharedPreferences("Mood",MODE_PRIVATE);
                         SharedPreferences.Editor editor = mPreferences.edit();
 
-
-
                         String comment = mComment.getText().toString(); //
                         mComment.getText();
 
-                        Mood mood = new Mood (comment, date, mood);
+                        Mood mood = new Mood (comment, mood);
                         Gson gson = new Gson();
                         String json = gson.toJson(mood);
 
@@ -162,11 +161,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*private void insertMood() {
-            setMoodsScreen();
-            currentDate;
 
-        }*/
 
         /////////////////////////////////////////////////////////////////////
         // Partie sur le boutton history                               /////
@@ -181,14 +176,59 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    public void saveMood() {
+        Mood mood = new Mood();
+        mood.getComment();
+        mood.getMood() = this.mood;
+
+        moodList.add(new Mood());
+        saveListSharedPreferences();
+    }
+
+    public void LoadMood() {
+        SharedPreferences setting = getSharedPreferences("PREF KEY", MODE_PRIVATE);
+        String moodList = setting.toString("moods");
+        Type listType = new TypeToken<ArrayList<Mood>>() {}.getType();
+        moodList = new  Gson().fromJson(moodList, listType);
+    }
+
+    private void saveListSharedPreferences() {
+        SharedPreferences moodListe = getPreferences(MODE_PRIVATE);
+        moodListe.edit().putString("moods", new Gson().toJson(moodListe));
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Methode pour le swipe color et smiley
+
+    /**
+     *
+     */
     private void setMoodsScreen() {
         mColorSwipe.setBackgroundColor(getResources().getColor(colorSwipe[moodSwipe]));
         mSmileySwipe.setImageResource(smileySwipe[moodSwipe]);
     }
 
 
-
     private void initializeView() {
         smiley_swipe =(ImageView) findViewById(R.id.smiley_swipe);
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Mood mood = moodList.get(0);
+        Date date = Calendar.getInstance().getTime();
+        Date now = new Date();
+        mood.date < Date;
+
+        now.getTime();
+                .getDay()
+                .getMonths()
+                .getYear();
     }
 }

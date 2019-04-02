@@ -48,7 +48,7 @@ public class history extends AppCompatActivity {
         setContentView(R.layout.activity_history);
 
             mList_history_mood = (ListView) findViewById(R.id.list_history_mood);
-            viewListModelMood();
+            viewListMood();
 
         }
 
@@ -75,32 +75,30 @@ public class history extends AppCompatActivity {
             mList_history_mood.setAdapter(adapter);
         }
 
-        private List<ModelMood> genererModelMood(){
-            List<ModelMood> ModelMoods = new ArrayList<ModelMood>();
+        private List<Mood> genererMood(){
+            List<Mood> Moods = new ArrayList<Mood>();
 
-            ModelMoods.add(new ModelMood("Hum plus facile à dire qu'à faire"));
+            Moods.add(new Mood("Hum plus facile à dire qu'à faire", 2));
 
-            ModelMoods.add(new ModelMood("Pffff tjrs pas çà !!!!!!!!!!!!!!!!!!!"));
+            Moods.add(new Mood("Pffff tjrs pas çà !!!!!!!!!!!!!!!!!!!",3));
 
-            ModelMoods.add(new ModelMood("Don't let the noise of others' opinion drown out your own inner voice by Steve jobs"));
+            Moods.add(new Mood("Don't let the noise of others' opinion drown out your own inner voice by Steve jobs",4));
 
+            Moods.add(new Mood("Il y a une semaine",1));
+            Moods.add(new Mood("Il y a six jours",3));
+            Moods.add(new Mood("Il y a cinq jours",1));
+            Moods.add(new Mood("Il y a quatre jours",2));
+            Moods.add(new Mood("Il y a trois jours",3));
+            Moods.add(new Mood("Avant-hier",2));
+            Moods.add(new Mood("Hier",2));
 
-
-            ModelMoods.add(new ModelMood("Il y a une semaine"));
-            ModelMoods.add(new ModelMood("Il y a six jours"));
-            ModelMoods.add(new ModelMood("Il y a cinq jours"));
-            ModelMoods.add(new ModelMood("Il y a quatre jours"));
-            ModelMoods.add(new ModelMood("Il y a trois jours"));
-            ModelMoods.add(new ModelMood("Avant-hier"));
-            ModelMoods.add(new ModelMood("Hier"));
-
-            return ModelMoods;
+            return Moods;
         }
 
-        private void viewListModelMood(){
-            List<ModelMood> ModelMoods = genererModelMood();
+        private void viewListMood(){
+            List<Mood> Moods = genererMood();
 
-            HistoryMoodAdapter adapter = new HistoryMoodAdapter(history.this, ModelMoods);
+            HistoryMoodAdapter adapter = new HistoryMoodAdapter(history.this, Moods);
             mList_history_mood.setAdapter(adapter);
         }
 

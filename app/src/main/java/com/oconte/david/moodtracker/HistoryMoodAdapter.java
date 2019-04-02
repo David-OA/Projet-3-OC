@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HistoryMoodAdapter extends ArrayAdapter<ModelMood> {
+public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
 
     Context context;
 
@@ -29,8 +29,8 @@ public class HistoryMoodAdapter extends ArrayAdapter<ModelMood> {
 
     private SharedPreferences mPreferences;
 
-    public HistoryMoodAdapter(Context context, List<ModelMood> ModelMoods) {
-        super(context, 0, ModelMoods);
+    public HistoryMoodAdapter(Context context, List<Mood> Moods) {
+        super(context, 0, Moods);
         this.context = context;
     }
 
@@ -44,7 +44,7 @@ public class HistoryMoodAdapter extends ArrayAdapter<ModelMood> {
         HistoryViewHolder viewHolder = (HistoryViewHolder) convertView.getTag();
         if(viewHolder == null){
             viewHolder = new HistoryViewHolder();
-            viewHolder.title = (TextView) convertView.findViewById(R.id.title);
+            //viewHolder.title = (TextView) convertView.findViewById(R.id.title);
             viewHolder.avatar = (ImageButton) convertView.findViewById(R.id.avatar);
 
 
@@ -52,8 +52,8 @@ public class HistoryMoodAdapter extends ArrayAdapter<ModelMood> {
 
         }
 
-        ModelMood modelMood = getItem(position);
-        viewHolder.title.setText(modelMood.getTitle());
+        Mood mood = getItem(position);
+        //viewHolder.title.setText(Mood.getTitle());
 
         viewHolder.avatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +70,7 @@ public class HistoryMoodAdapter extends ArrayAdapter<ModelMood> {
     }
 
     private class HistoryViewHolder {
-        public TextView title;
+        //public TextView title;
         public ImageButton avatar;
     }
 }
