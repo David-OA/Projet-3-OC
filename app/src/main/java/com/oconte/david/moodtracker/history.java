@@ -23,6 +23,7 @@ import com.google.gson.reflect.TypeToken;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,28 +76,17 @@ public class history extends AppCompatActivity {
             mList_history_mood.setAdapter(adapter);
         }
 
-        private List<Mood> genererMood(){
-            List<Mood> Moods = new ArrayList<Mood>();
+        public List<Mood> LoadMood() {
+            SharedPreferences setting = getSharedPreferences("Mood", MODE_PRIVATE);
+            String moodList = setting.getString("moods", "");
+            Type listType = new TypeToken<ArrayList<Mood>>() {}.getType();
+            List<Mood> list = new  Gson().fromJson(moodList, listType);
 
-            Moods.add(new Mood("Hum plus facile à dire qu'à faire", 2));
-
-            Moods.add(new Mood("Pffff tjrs pas çà !!!!!!!!!!!!!!!!!!!",3));
-
-            Moods.add(new Mood("Don't let the noise of others' opinion drown out your own inner voice by Steve jobs",4));
-
-            Moods.add(new Mood("Il y a une semaine",1));
-            Moods.add(new Mood("Il y a six jours",3));
-            Moods.add(new Mood("Il y a cinq jours",1));
-            Moods.add(new Mood("Il y a quatre jours",2));
-            Moods.add(new Mood("Il y a trois jours",3));
-            Moods.add(new Mood("Avant-hier",2));
-            Moods.add(new Mood("Hier",2));
-
-            return Moods;
+            return list;
         }
 
         private void viewListMood(){
-            List<Mood> Moods = genererMood();
+            List<Mood> Moods = LoadMood();
 
             HistoryMoodAdapter adapter = new HistoryMoodAdapter(history.this, Moods);
             mList_history_mood.setAdapter(adapter);

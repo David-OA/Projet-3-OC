@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,18 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
     Context context;
 
     ImageButton avatar;
+
+    RelativeLayout week;
+
+    //public int moodSwipe;
+
+    public int [] moodSwipe = new int[] {
+            R.color.banana_yellow,
+            R.color.light_sage,
+            R.color.cornflower_blue_65,
+            R.color.warm_grey,
+            R.color.faded_red
+    };
 
     private SharedPreferences mPreferences;
 
@@ -47,21 +60,43 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
             //viewHolder.title = (TextView) convertView.findViewById(R.id.title);
             viewHolder.avatar = (ImageButton) convertView.findViewById(R.id.avatar);
 
+            viewHolder.week = (RelativeLayout) convertView.findViewById(R.id.week);
 
             convertView.setTag(viewHolder);
 
         }
 
-        Mood mood = getItem(position);
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+        final Mood mood = getItem(position);
         //viewHolder.title.setText(Mood.getTitle());
+
+        //viewHolder.week.getResources(setBanner()); test1
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        //test2
+
+        if(Moods.get(position).get(moodSwipe) == 0) {
+            viewHolder.week.setBackgroundResource(R.color.banana_yellow);
+        }
+        else if (Moods.get(position).get(moodSwipe) == 1) {
+            viewHolder.week.setBackgroundResource(R.color.light_sage);
+        }
+        else if (Moods.get(position).get(moodSwipe) == 2) {
+            viewHolder.week.setBackgroundResource(R.color.cornflower_blue_65);
+        }
+        else if (Moods.get(position).get(moodSwipe) == 3) {
+            viewHolder.week.setBackgroundResource(R.color.warm_grey);
+        }
+        else if (Moods.get(position).get(moodSwipe) == 4) {
+            viewHolder.week.setBackgroundResource(R.color.faded_red);
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
 
         viewHolder.avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences mPreferences = context.getSharedPreferences("Mood", Context.MODE_PRIVATE);
-                Gson gson = new Gson();
-                String json = mPreferences.getString("Mood", "");
-                Mood mood = gson.fromJson(json, Mood.class);
                 Toast.makeText(context,mood.getComment(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -69,8 +104,36 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
         return convertView;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //test1
+    /*public void setBanner() {
+        if (moodSwipe == 0) {
+            //convertView.findViewById(R.id.week);
+            week.setBackgroundResource(R.color.banana_yellow);
+        } else if (moodSwipe == 1) {
+            //convertView.findViewById(R.id.week);
+            week.setBackgroundResource(R.color.light_sage);
+        } else if (moodSwipe == 2) {
+            //convertView.findViewById(R.id.week);
+            week.setBackgroundResource(R.color.cornflower_blue_65);
+        } else if (moodSwipe == 3) {
+            //convertView.findViewById(R.id.week);
+            week.setBackgroundResource(R.color.warm_grey);
+        } else if (moodSwipe == 4) {
+            //convertView.findViewById(R.id.week);
+            week.setBackgroundResource(R.color.faded_red);
+        }
+    }*/
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     private class HistoryViewHolder {
         //public TextView title;
         public ImageButton avatar;
+        public RelativeLayout week;
     }
 }

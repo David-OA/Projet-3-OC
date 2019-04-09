@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     // variables pour les sauvegardes
 
     EditText mComment;
-
+    List<Mood> moodList = new ArrayList<>();
 
 
     @SuppressLint({"ClickableViewAccessibility", "CommitPrefEdits"})
@@ -81,9 +81,6 @@ public class MainActivity extends AppCompatActivity {
         mSmileySwipe.setImageResource(smileySwipe[moodSwipe]);
 
         Calendar calendar = Calendar.getInstance();
-        //String Date = DateFormat.getDateInstance().format(calendar.getTime());
-
-        //SimpleDateFormat
 
         initializeView();
         smiley_swipe.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
@@ -136,12 +133,8 @@ public class MainActivity extends AppCompatActivity {
                         String comment = mComment.getText().toString(); //
                         mComment.getText();
 
-                        Mood mood = new Mood (comment, mood);
-                        Gson gson = new Gson();
-                        String json = gson.toJson(mood);
-
-                        editor.putString("Mood", json);
-                        editor.apply();
+                        Mood mood = new Mood (comment, moodSwipe, new Date());
+                        saveMood(mood);
 
                     }
                 });
@@ -178,34 +171,19 @@ public class MainActivity extends AppCompatActivity {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public void saveMood() {
-        Mood mood = new Mood();
-        mood.getComment();
-        mood.getMood() = this.mood;
-
-        moodList.add(new Mood());
+    public void saveMood(Mood mood) {
+        moodList.add(mood);
         saveListSharedPreferences();
     }
 
-    public void LoadMood() {
-        SharedPreferences setting = getSharedPreferences("PREF KEY", MODE_PRIVATE);
-        String moodList = setting.toString("moods");
-        Type listType = new TypeToken<ArrayList<Mood>>() {}.getType();
-        moodList = new  Gson().fromJson(moodList, listType);
-    }
-
     private void saveListSharedPreferences() {
-        SharedPreferences moodListe = getPreferences(MODE_PRIVATE);
-        moodListe.edit().putString("moods", new Gson().toJson(moodListe));
+        SharedPreferences sharedPreferences = getSharedPreferences("Mood",MODE_PRIVATE);
+        sharedPreferences.edit().putString("moods", new Gson().toJson(moodList)).apply();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Methode pour le swipe color et smiley
-
-    /**
-     *
-     */
     private void setMoodsScreen() {
         mColorSwipe.setBackgroundColor(getResources().getColor(colorSwipe[moodSwipe]));
         mSmileySwipe.setImageResource(smileySwipe[moodSwipe]);
@@ -218,17 +196,30 @@ public class MainActivity extends AppCompatActivity {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    @Override
+    /*@Override
     protected void onDestroy() {
         super.onDestroy();
         Mood mood = moodList.get(0);
         Date date = Calendar.getInstance().getTime();
-        Date now = new Date();
-        mood.date < Date;
 
-        now.getTime();
-                .getDay()
-                .getMonths()
-                .getYear();
-    }
+        if(mood.date.compareTo(date) = date ) {
+            System.out.println("vive Android");
+
+        } else if (mood.date.compareTo(date) != date ) {
+            System.out.println("Android un jour, Android toujours");
+        }
+
+
+        String dateString = "20/12/2018";
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Date readDate = df.parse(dateString);
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(readDate.getTime());
+        Log.d(TAG, "Year: "+cal.get(Calendar.YEAR));
+        Log.d(TAG, "Month: "+cal.get(Calendar.MONTH));
+        Log.d(TAG, "Day: "+cal.get(Calendar.DAY_OF_MONTH));
+
+
+
+    }*/
 }
