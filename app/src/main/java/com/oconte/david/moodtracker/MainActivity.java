@@ -24,6 +24,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,6 +37,15 @@ public class MainActivity extends AppCompatActivity {
     ImageButton note_button;
     ImageButton history_button;
 
+    public String[] textDate = new String[]{
+            "one_week",
+            "six_days",
+            "five_days",
+            "four_days",
+            "three_days",
+            "before_day",
+            "yester_day"
+    };
 
     // Variable pour le swipe
 
@@ -59,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
     };
     private int moodSwipe = 1;
     ImageView smiley_swipe;
-
 
     // variables pour les sauvegardes
 
@@ -155,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         /////////////////////////////////////////////////////////////////////
         // Partie sur le boutton history                               /////
         ///////////////////////////////////////////////////////////////////
@@ -168,7 +176,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public void saveMood(Mood mood) {
@@ -196,30 +203,32 @@ public class MainActivity extends AppCompatActivity {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    /*@Override
+    @Override
     protected void onDestroy() {
         super.onDestroy();
+
         Mood mood = moodList.get(0);
         Date date = Calendar.getInstance().getTime();
 
-        if(mood.date.compareTo(date) = date ) {
-            System.out.println("vive Android");
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DAY_OF_YEAR, -1);
+        cal.add(Calendar.DAY_OF_MONTH, -1);
+        cal.add(Calendar.DAY_OF_WEEK, -1);
 
-        } else if (mood.date.compareTo(date) != date ) {
-            System.out.println("Android un jour, Android toujours");
+        Date oneDayBefore = cal.getTime();
+
+        if (date.equals(date)) {
+
         }
 
+        if (date.after(date)) {
 
-        String dateString = "20/12/2018";
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        Date readDate = df.parse(dateString);
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(readDate.getTime());
-        Log.d(TAG, "Year: "+cal.get(Calendar.YEAR));
-        Log.d(TAG, "Month: "+cal.get(Calendar.MONTH));
-        Log.d(TAG, "Day: "+cal.get(Calendar.DAY_OF_MONTH));
+        }
 
+        if (date.before(date)) {
 
+        }
 
-    }*/
+    }
 }

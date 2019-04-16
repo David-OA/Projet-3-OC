@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,8 +31,6 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
 
     RelativeLayout week;
 
-    //public int moodSwipe;
-
     public int [] moodSwipe = new int[] {
             R.color.banana_yellow,
             R.color.light_sage,
@@ -42,10 +41,21 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
 
     private SharedPreferences mPreferences;
 
-    public HistoryMoodAdapter(Context context, List<Mood> Moods) {
-        super(context, 0, Moods);
+    public float [] moodWeight = new float[] {
+            0f,
+            0.2f,
+            0.4f,
+            0.6f,
+            0.8f,
+    };
+
+    List<Mood> moods;
+
+    public HistoryMoodAdapter(Context context, List<Mood> moods) {
+        super(context, 0, moods);
         this.context = context;
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -57,10 +67,14 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
         HistoryViewHolder viewHolder = (HistoryViewHolder) convertView.getTag();
         if(viewHolder == null){
             viewHolder = new HistoryViewHolder();
-            //viewHolder.title = (TextView) convertView.findViewById(R.id.title);
+
+            viewHolder.title = (TextView) convertView.findViewById(R.id.title);
+
             viewHolder.avatar = (ImageButton) convertView.findViewById(R.id.avatar);
 
             viewHolder.week = (RelativeLayout) convertView.findViewById(R.id.week);
+
+            viewHolder.weight = convertView.findViewById(R.id.weight);
 
             convertView.setTag(viewHolder);
 
@@ -69,30 +83,17 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
         ////////////////////////////////////////////////////////////////////////////////////////////
 
         final Mood mood = getItem(position);
-        //viewHolder.title.setText(Mood.getTitle());
+        //viewHolder.title.setText(textDate);
 
-        //viewHolder.week.getResources(setBanner()); test1
+        viewHolder.week.setBackgroundResource(moodSwipe[mood.getMood()]);
 
-        ////////////////////////////////////////////////////////////////////////////////////////////
-        //test2
+        viewHolder.week.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, moodWeight[mood.getMood()]));
 
-        if(Moods.get(position).get(moodSwipe) == 0) {
-            viewHolder.week.setBackgroundResource(R.color.banana_yellow);
-        }
-        else if (Moods.get(position).get(moodSwipe) == 1) {
-            viewHolder.week.setBackgroundResource(R.color.light_sage);
-        }
-        else if (Moods.get(position).get(moodSwipe) == 2) {
-            viewHolder.week.setBackgroundResource(R.color.cornflower_blue_65);
-        }
-        else if (Moods.get(position).get(moodSwipe) == 3) {
-            viewHolder.week.setBackgroundResource(R.color.warm_grey);
-        }
-        else if (Moods.get(position).get(moodSwipe) == 4) {
-            viewHolder.week.setBackgroundResource(R.color.faded_red);
-        }
+        viewHolder.weight.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1 -moodWeight[mood.getMood()]));
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////
+
 
         viewHolder.avatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,36 +105,32 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
         return convertView;
     }
 
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    //test1
-    /*public void setBanner() {
-        if (moodSwipe == 0) {
-            //convertView.findViewById(R.id.week);
-            week.setBackgroundResource(R.color.banana_yellow);
-        } else if (moodSwipe == 1) {
-            //convertView.findViewById(R.id.week);
-            week.setBackgroundResource(R.color.light_sage);
-        } else if (moodSwipe == 2) {
-            //convertView.findViewById(R.id.week);
-            week.setBackgroundResource(R.color.cornflower_blue_65);
-        } else if (moodSwipe == 3) {
-            //convertView.findViewById(R.id.week);
-            week.setBackgroundResource(R.color.warm_grey);
-        } else if (moodSwipe == 4) {
-            //convertView.findViewById(R.id.week);
-            week.setBackgroundResource(R.color.faded_red);
+    public int size() {
+        if (moods != null) {
+            return moods.size();
         }
+        return 7;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    /*public int getCount() {
+        if (moods != null) {
+            if (moods[moods.size()] <= 7) {
+
+                return moods.size();
+
+            } return 7;
+
+        } return 0;
     }*/
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
     private class HistoryViewHolder {
-        //public TextView title;
-        public ImageButton avatar;
-        public RelativeLayout week;
+        TextView title;
+        ImageButton avatar;
+        RelativeLayout week;
+        View weight;
     }
 }

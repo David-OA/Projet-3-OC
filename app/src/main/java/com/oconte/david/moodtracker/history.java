@@ -30,13 +30,7 @@ import java.util.List;
 
 public class history extends AppCompatActivity {
 
-    /*ImageButton one_week;
-    ImageButton six_days;
-    ImageButton five_days;
-    ImageButton four_days;
-    ImageButton three_days;
-    ImageButton before_day;
-    ImageButton yester_day;*/
+
 
     ListView mList_history_mood;
 
