@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -82,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //getList();
+        //moodList = getList();
 
         mColorSwipe = findViewById(R.id.smileycolor);
         mSmileySwipe = findViewById(R.id.smiley_swipe);
@@ -114,9 +117,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        /////////////////////////////////////////////////////////////////////
-        // Partie sur le boutton commentaire                           /////
-        ///////////////////////////////////////////////////////////////////
         note_button = (ImageButton) findViewById(R.id.note_button);
         note_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 LayoutInflater factory = LayoutInflater.from(MainActivity.this);
                 final View alertDialogView = factory.inflate(R.layout.dialog_comment, null);
 
-                final EditText mComment = (EditText) alertDialogView.findViewById(R.id.dialogComment); // je précise ou trouver la zone de saisie et la vue
+                final EditText mComment = (EditText) alertDialogView.findViewById(R.id.dialogComment);
 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
                 alertDialog.setMessage("Commentaire");
@@ -164,9 +164,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        /////////////////////////////////////////////////////////////////////
-        // Partie sur le boutton history                               /////
-        ///////////////////////////////////////////////////////////////////
         history_button = (ImageButton) findViewById(R.id.history_button);
         history_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,7 +174,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
+    /*public List<Mood> getList() {
+        SharedPreferences setting = getSharedPreferences("Mood", MODE_PRIVATE);
+        String moodList = setting.getString("moods", "");
+        Type listType = new TypeToken<ArrayList<Mood>>() {}.getType();
+        List<Mood> list = new  Gson().fromJson(moodList, listType);
+
+        return list;
+    }*/
+
+
     public void saveMood(Mood mood) {
         moodList.add(mood);
         saveListSharedPreferences();
@@ -188,7 +194,6 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences.edit().putString("moods", new Gson().toJson(moodList)).apply();
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Methode pour le swipe color et smiley
     private void setMoodsScreen() {
@@ -202,33 +207,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
 
         Mood mood = moodList.get(0);
-        Date date = Calendar.getInstance().getTime();
+        final Date date = Calendar.getInstance().getTime();
+
+        /*Scanner sc = new Scanner(moodList) {
+             if(date == date ) {
+                 return remove (Mood);
+            }
+            if(date Mood > date ) {
+                 return new Mood;
+            }
+        };*/
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        cal.add(Calendar.DAY_OF_YEAR, -1);
-        cal.add(Calendar.DAY_OF_MONTH, -1);
-        cal.add(Calendar.DAY_OF_WEEK, -1);
+        int Day = cal.get(Calendar.DAY_OF_YEAR);
 
-        Date oneDayBefore = cal.getTime();
+        Calendar moodCal = Calendar.getInstance();
+        moodCal.setTime(mood.date);
+        int MoodDay = cal.get(Calendar.DAY_OF_YEAR);
 
-        if (date.equals(date)) {
-
-        }
-
-        if (date.after(date)) {
-
-        }
-
-        if (date.before(date)) {
-
-        }
-
+        super.onPause();
     }
 }

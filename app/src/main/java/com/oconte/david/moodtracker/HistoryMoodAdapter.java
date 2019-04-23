@@ -2,24 +2,16 @@ package com.oconte.david.moodtracker;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -30,6 +22,21 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
     ImageButton avatar;
 
     RelativeLayout week;
+
+    //////////////////////////////////////////////////////
+    private String mtextDate;
+    /*public String[] textDate = new String[]{
+            "one_week",
+            "six_days",
+            "five_days",
+            "four_days",
+            "three_days",
+            "before_day",
+            "yester_day"
+    };*/
+
+
+    ///////////////////////////////////////////////////////////
 
     public int [] moodSwipe = new int[] {
             R.color.banana_yellow,
@@ -54,7 +61,10 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
     public HistoryMoodAdapter(Context context, List<Mood> moods) {
         super(context, 0, moods);
         this.context = context;
+        this.moods = moods;
     }
+
+
 
 
     @Override
@@ -62,6 +72,7 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
 
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_mood,parent, false);
+
         }
 
         HistoryViewHolder viewHolder = (HistoryViewHolder) convertView.getTag();
@@ -76,23 +87,36 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
 
             viewHolder.weight = convertView.findViewById(R.id.weight);
 
+
+           // if (mood.getComment().equals(null))
+            //    viewHolder.avatar.setVisibility(View.GONE);
+
             convertView.setTag(viewHolder);
 
         }
 
+
         ////////////////////////////////////////////////////////////////////////////////////////////
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) viewHolder.week.getLayoutParams();
+        params.height = 120;
+        viewHolder.week.setLayoutParams(params);
+        ///////////////////////////////////////////////////////////////////////////////////////////
+
+
 
         final Mood mood = getItem(position);
-        //viewHolder.title.setText(textDate);
+
+        ///////////////////////////////////////////////////////////
+
+        viewHolder.title.setText(getDay());
+
+        //////////////////////////////////////////////////////////////////////
 
         viewHolder.week.setBackgroundResource(moodSwipe[mood.getMood()]);
 
         viewHolder.week.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, moodWeight[mood.getMood()]));
 
         viewHolder.weight.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1 -moodWeight[mood.getMood()]));
-
-
-        ////////////////////////////////////////////////////////////////////////////////////////////
 
 
         viewHolder.avatar.setOnClickListener(new View.OnClickListener() {
@@ -105,28 +129,37 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
         return convertView;
     }
 
-
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public int size() {
-        if (moods != null) {
-            return moods.size();
-        }
-        return 7;
+
+    public String getDay() {
+        String[] textDate = new String[]{
+                "one_week",
+                "six_days",
+                "five_days",
+                "four_days",
+                "three_days",
+                "before_day",
+                "yester_day"
+        };
+
+        mtextDate = textDate[];
+
+        return mtextDate;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    /*public int getCount() {
+
+    public int getCount() {
         if (moods != null) {
-            if (moods[moods.size()] <= 7) {
+            if (moods.size() <= 7) {
 
                 return moods.size();
 
             } return 7;
 
         } return 0;
-    }*/
+    }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
     private class HistoryViewHolder {
         TextView title;
         ImageButton avatar;

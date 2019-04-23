@@ -30,8 +30,6 @@ import java.util.List;
 
 public class history extends AppCompatActivity {
 
-
-
     ListView mList_history_mood;
 
     ImageButton avatar;
