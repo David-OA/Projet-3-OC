@@ -38,16 +38,6 @@ public class MainActivity extends AppCompatActivity {
     ImageButton note_button;
     ImageButton history_button;
 
-    public String[] textDate = new String[]{
-            "one_week",
-            "six_days",
-            "five_days",
-            "four_days",
-            "three_days",
-            "before_day",
-            "yester_day"
-    };
-
     // Variable pour le swipe
 
     private RelativeLayout mColorSwipe;
@@ -83,8 +73,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //getList();
-        //moodList = getList();
+        moodList = getList();
 
         mColorSwipe = findViewById(R.id.smileycolor);
         mSmileySwipe = findViewById(R.id.smiley_swipe);
@@ -174,14 +163,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /*public List<Mood> getList() {
+    public List<Mood> getList() {
         SharedPreferences setting = getSharedPreferences("Mood", MODE_PRIVATE);
         String moodList = setting.getString("moods", "");
         Type listType = new TypeToken<ArrayList<Mood>>() {}.getType();
         List<Mood> list = new  Gson().fromJson(moodList, listType);
 
         return list;
-    }*/
+    }
 
 
     public void saveMood(Mood mood) {
@@ -207,29 +196,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onPause() {
 
-        Mood mood = moodList.get(0);
-        final Date date = Calendar.getInstance().getTime();
+        // finir la comparaison des dates pour savoir si je remplace ou is j'ajoute un mood
+        if (moodList != null && moodList.size() > 0) {
+            Mood mood = moodList.get(moodList.size() - 1);
+            final Date date = Calendar.getInstance().getTime();
+            
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            int Day = cal.get(Calendar.DAY_OF_YEAR);
 
-        /*Scanner sc = new Scanner(moodList) {
-             if(date == date ) {
-                 return remove (Mood);
-            }
-            if(date Mood > date ) {
-                 return new Mood;
-            }
-        };*/
+            Calendar moodCal = Calendar.getInstance();
+            moodCal.setTime(mood.date);
+            int MoodDay = cal.get(Calendar.DAY_OF_YEAR);
+        }
 
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        int Day = cal.get(Calendar.DAY_OF_YEAR);
-
-        Calendar moodCal = Calendar.getInstance();
-        moodCal.setTime(mood.date);
-        int MoodDay = cal.get(Calendar.DAY_OF_YEAR);
 
         super.onPause();
     }

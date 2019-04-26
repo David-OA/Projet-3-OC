@@ -12,6 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -23,20 +25,7 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
 
     RelativeLayout week;
 
-    //////////////////////////////////////////////////////
     private String mtextDate;
-    /*public String[] textDate = new String[]{
-            "one_week",
-            "six_days",
-            "five_days",
-            "four_days",
-            "three_days",
-            "before_day",
-            "yester_day"
-    };*/
-
-
-    ///////////////////////////////////////////////////////////
 
     public int [] moodSwipe = new int[] {
             R.color.banana_yellow,
@@ -65,8 +54,6 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
     }
 
 
-
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -87,14 +74,9 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
 
             viewHolder.weight = convertView.findViewById(R.id.weight);
 
-
-           // if (mood.getComment().equals(null))
-            //    viewHolder.avatar.setVisibility(View.GONE);
-
             convertView.setTag(viewHolder);
 
         }
-
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) viewHolder.week.getLayoutParams();
@@ -103,14 +85,20 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
         ///////////////////////////////////////////////////////////////////////////////////////////
 
 
-
         final Mood mood = getItem(position);
+        if (mood.getComment() == null || mood.getComment().isEmpty())
+            viewHolder.avatar.setVisibility(View.GONE);
 
-        ///////////////////////////////////////////////////////////
+        final Date date = Calendar.getInstance().getTime();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int Day = cal.get(Calendar.DAY_OF_YEAR);
 
-        viewHolder.title.setText(getDay());
+        Calendar moodCal = Calendar.getInstance();
+        moodCal.setTime(mood.date);
+        int MoodDay = cal.get(Calendar.DAY_OF_YEAR);
 
-        //////////////////////////////////////////////////////////////////////
+        viewHolder.title.setText(getDay(Day - MoodDay));
 
         viewHolder.week.setBackgroundResource(moodSwipe[mood.getMood()]);
 
@@ -129,22 +117,18 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
         return convertView;
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public String getDay() {
+    public String getDay(int day) {
         String[] textDate = new String[]{
-                "one_week",
-                "six_days",
-                "five_days",
-                "four_days",
-                "three_days",
-                "before_day",
-                "yester_day"
+                "Il y a une semaine",
+                "Il y a six jours",
+                "Il y a cinq jours",
+                "Il y a quatre jours",
+                "Il y a trois jours",
+                "Avant-hier",
+                "Hier"
         };
 
-        mtextDate = textDate[];
-
-        return mtextDate;
+        return textDate [day];
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
