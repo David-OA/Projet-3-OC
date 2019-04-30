@@ -67,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
     List<Mood> moodList = new ArrayList<>();
 
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @SuppressLint({"ClickableViewAccessibility", "CommitPrefEdits"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +88,10 @@ public class MainActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
 
         initializeView();
+
+        /**
+         *
+         */
         smiley_swipe.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeTop() {
                 if (moodSwipe < 4) {
@@ -106,6 +114,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        /**
+         *
+         */
         note_button = (ImageButton) findViewById(R.id.note_button);
         note_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,6 +164,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        /**
+         *
+         */
         history_button = (ImageButton) findViewById(R.id.history_button);
         history_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +177,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Mood> getList() {
         SharedPreferences setting = getSharedPreferences("Mood", MODE_PRIVATE);
         String moodList = setting.getString("moods", "");
@@ -173,11 +191,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     *
+     * @param mood
+     */
     public void saveMood(Mood mood) {
         moodList.add(mood);
         saveListSharedPreferences();
     }
 
+    /**
+     *
+     */
     private void saveListSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("Mood",MODE_PRIVATE);
         sharedPreferences.edit().putString("moods", new Gson().toJson(moodList)).apply();
@@ -185,17 +210,27 @@ public class MainActivity extends AppCompatActivity {
 
 
     // Methode pour le swipe color et smiley
+
+    /**
+     *
+     */
     private void setMoodsScreen() {
         mColorSwipe.setBackgroundColor(getResources().getColor(colorSwipe[moodSwipe]));
         mSmileySwipe.setImageResource(smileySwipe[moodSwipe]);
     }
 
 
+    /**
+     * I initialize the view for the
+     */
     private void initializeView() {
         smiley_swipe =(ImageView) findViewById(R.id.smiley_swipe);
     }
 
 
+    /**
+     *
+     */
     @Override
     protected void onPause() {
 
@@ -203,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
         if (moodList != null && moodList.size() > 0) {
             Mood mood = moodList.get(moodList.size() - 1);
             final Date date = Calendar.getInstance().getTime();
-            
+
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
             int Day = cal.get(Calendar.DAY_OF_YEAR);
@@ -211,8 +246,13 @@ public class MainActivity extends AppCompatActivity {
             Calendar moodCal = Calendar.getInstance();
             moodCal.setTime(mood.date);
             int MoodDay = cal.get(Calendar.DAY_OF_YEAR);
-        }
 
+            if (date == mood.date) {
+
+            } else {
+                moodList.add(mood);
+            }
+        }
 
         super.onPause();
     }

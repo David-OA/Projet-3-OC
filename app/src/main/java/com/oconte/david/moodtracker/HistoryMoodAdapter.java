@@ -47,6 +47,11 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
 
     List<Mood> moods;
 
+    /**
+     *
+     * @param context
+     * @param moods
+     */
     public HistoryMoodAdapter(Context context, List<Mood> moods) {
         super(context, 0, moods);
         this.context = context;
@@ -54,6 +59,13 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
     }
 
 
+    /**
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -83,7 +95,6 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
         params.height = 120;
         viewHolder.week.setLayoutParams(params);
         ///////////////////////////////////////////////////////////////////////////////////////////
-
 
         final Mood mood = getItem(position);
         if (mood.getComment() == null || mood.getComment().isEmpty())
@@ -117,6 +128,11 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
         return convertView;
     }
 
+    /**
+     *
+     * @param day
+     * @return
+     */
     public String getDay(int day) {
         String[] textDate = new String[]{
                 "Il y a une semaine",
@@ -133,6 +149,10 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     *
+     * @return
+     */
     public int getCount() {
         if (moods != null) {
             if (moods.size() <= 7) {
