@@ -29,14 +29,34 @@ public class statistics extends AppCompatActivity {
 
         //SliceValue : Float the size of pie chart and Color  wich you can set for that particular pie chart
 
-        pieData.add(new SliceValue(15, getColor(R.color.banana_yellow)).setLabel("super_happy"));
-        pieData.add(new SliceValue(25, getColor(R.color.light_sage)).setLabel("happy"));
-        pieData.add(new SliceValue(10, getColor(R.color.cornflower_blue_65)).setLabel("normal"));
-        pieData.add(new SliceValue(30, getColor(R.color.warm_grey)).setLabel("disappointed"));
-        pieData.add(new SliceValue(30, getColor(R.color.faded_red)).setLabel("sad"));
+        pieData.add(new SliceValue(15, getResources().getColor(R.color.banana_yellow)).setLabel("super_happy"));
+        pieData.add(new SliceValue(25, getResources().getColor(R.color.light_sage)).setLabel("happy"));
+        pieData.add(new SliceValue(10, getResources().getColor(R.color.cornflower_blue_65)).setLabel("normal"));
+        pieData.add(new SliceValue(30, getResources().getColor(R.color.warm_grey)).setLabel("disappointed"));
+        pieData.add(new SliceValue(30, getResources().getColor(R.color.faded_red)).setLabel("sad"));
 
         PieChartData pieChartData = new PieChartData(pieData);
         pieChartData.setHasLabels(true).setValueLabelTextSize(14);
         pieChartView.setPieChartData(pieChartData);
+    }
+
+    public void pourCentSuperHappy () {
+        //reponse = (100* nombredesupperhappy) / moodList.size();
+    }
+
+    public void pourCentHappy () {
+
+    }
+
+    public void pourCentNormal () {
+
+    }
+
+    public void pourCentDisappointed () {
+
+    }
+
+    public void pourCentSad () {
+
     }
 }

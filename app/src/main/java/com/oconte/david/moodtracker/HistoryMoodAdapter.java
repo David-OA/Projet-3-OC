@@ -91,9 +91,9 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) viewHolder.week.getLayoutParams();
+        /*LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) viewHolder.week.getLayoutParams();
         params.height = 120;
-        viewHolder.week.setLayoutParams(params);
+        viewHolder.week.setLayoutParams(params);*/
         ///////////////////////////////////////////////////////////////////////////////////////////
 
         final Mood mood = getItem(position);
@@ -135,13 +135,14 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
      */
     public String getDay(int day) {
         String[] textDate = new String[]{
-                "Il y a une semaine",
-                "Il y a six jours",
-                "Il y a cinq jours",
-                "Il y a quatre jours",
-                "Il y a trois jours",
+                "Aujourd'hui",
+                "Hier",
                 "Avant-hier",
-                "Hier"
+                "Il y a trois jours",
+                "Il y a quatre jours",
+                "Il y a cinq jours",
+                "Il y a six jours",
+                "Il y a une semaine"
         };
 
         return textDate [day];

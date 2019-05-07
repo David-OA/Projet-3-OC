@@ -83,9 +83,5 @@ public class history extends AppCompatActivity {
             HistoryMoodAdapter adapter = new HistoryMoodAdapter(history.this, Moods);
             mList_history_mood.setAdapter(adapter);
         }
-
-
-
-
 }
 

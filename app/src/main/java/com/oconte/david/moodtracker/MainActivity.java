@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
     private int moodSwipe = 1;
     ImageView smiley_swipe;
 
+    Mood mood;
+
     // variables pour les sauvegardes
 
     EditText mComment;
@@ -142,8 +144,8 @@ public class MainActivity extends AppCompatActivity {
                         String comment = mComment.getText().toString(); //
                         mComment.getText();
 
-                        Mood mood = new Mood (comment, moodSwipe, new Date());
-                        saveMood(mood);
+                        mood = new Mood (comment, moodSwipe, new Date());
+
 
                     }
                 });
@@ -212,7 +214,8 @@ public class MainActivity extends AppCompatActivity {
     // Methode pour le swipe color et smiley
 
     /**
-     *
+     * It's for the view swipe.
+     * 
      */
     private void setMoodsScreen() {
         mColorSwipe.setBackgroundColor(getResources().getColor(colorSwipe[moodSwipe]));
@@ -221,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     * I initialize the view for the
+     * I initialize the view for the swipe
      */
     private void initializeView() {
         smiley_swipe =(ImageView) findViewById(R.id.smiley_swipe);
@@ -229,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     *
+     * This parts it's for compare the date of mood and save it or change it before to save it.
      */
     @Override
     protected void onPause() {
@@ -237,20 +240,27 @@ public class MainActivity extends AppCompatActivity {
         // finir la comparaison des dates pour savoir si je remplace ou is j'ajoute un mood
         if (moodList != null && moodList.size() > 0) {
             Mood mood = moodList.get(moodList.size() - 1);
+
             final Date date = Calendar.getInstance().getTime();
 
             Calendar cal = Calendar.getInstance();
-            cal.setTime(date);
-            int Day = cal.get(Calendar.DAY_OF_YEAR);
+            cal.setTime(this.mood.date);
+            int day = cal.get(Calendar.DAY_OF_YEAR);
 
             Calendar moodCal = Calendar.getInstance();
             moodCal.setTime(mood.date);
-            int MoodDay = cal.get(Calendar.DAY_OF_YEAR);
+            int moodDay = cal.get(Calendar.DAY_OF_YEAR);
 
-            if (date == mood.date) {
+            saveMood(mood);
+
+            if (day == moodDay) {
+                //remplacer  dans la list actuelle et ensuite enregistrer dans sharedpreference
+                moodList.set(moodList.size() - 1, this.mood);
+
+                //saveMood(this.mood);
 
             } else {
-                moodList.add(mood);
+                saveMood(this.mood);
             }
         }
 
