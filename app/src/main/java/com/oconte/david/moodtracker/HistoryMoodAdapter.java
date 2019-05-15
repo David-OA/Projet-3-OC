@@ -48,7 +48,7 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
     List<Mood> moods;
 
     /**
-     *
+     * It's the adapter for listView.
      * @param context
      * @param moods
      */
@@ -60,7 +60,7 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
 
 
     /**
-     *
+     * It's the different elements of view.
      * @param position
      * @param convertView
      * @param parent
@@ -129,7 +129,7 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
     }
 
     /**
-     *
+     * It's for
      * @param day
      * @return
      */
@@ -151,7 +151,7 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     *
+     * It's for see just 7 items.
      * @return
      */
     public int getCount() {
@@ -164,6 +164,7 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
 
         } return 0;
     }
+
 
     private class HistoryViewHolder {
         TextView title;

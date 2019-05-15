@@ -1,10 +1,15 @@
 package com.oconte.david.moodtracker;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,12 +21,18 @@ public class statistics extends AppCompatActivity {
 
     Context context;
 
+    List<Mood> moodList = new ArrayList<>();
+
+    int nbreSupperHappy;
+
     PieChartView pieChartView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
+
+        moodList = getList();
 
         pieChartView = findViewById(R.id.chart);
 
@@ -40,23 +51,44 @@ public class statistics extends AppCompatActivity {
         pieChartView.setPieChartData(pieChartData);
     }
 
+    public List<Mood> getList() {
+        SharedPreferences setting = getSharedPreferences("Mood", MODE_PRIVATE);
+        String moodList = setting.getString("moods", "");
+        Type listType = new TypeToken<ArrayList<Mood>>() {}.getType();
+        List<Mood> list = new Gson().fromJson(moodList, listType);
+
+        return list;
+    }
+
     public void pourCentSuperHappy () {
-        //reponse = (100* nombredesupperhappy) / moodList.size();
+        100*(nbreSupperHappy() / moodList.size());
+    }
+
+    public int nbreSupperHappy() {
+        for (int i = 0; i >= 0; i ++) {
+            if (moodList.get(0)) {
+                nbreSupperHappy ++;
+            }
+        }
     }
 
     public void pourCentHappy () {
+        //reponse = 100* (nbreHappy / moodList.size());
 
     }
 
     public void pourCentNormal () {
+        //reponse = 100* (nbreNormal / moodList.size());
 
     }
 
     public void pourCentDisappointed () {
+        //reponse = 100* (nbreDisappointed / moodList.size());
 
     }
 
     public void pourCentSad () {
+        //reponse = 100* (nbreSad / moodList.size());
 
     }
 }

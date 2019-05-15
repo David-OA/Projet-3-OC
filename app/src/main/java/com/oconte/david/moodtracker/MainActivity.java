@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton note_button;
     ImageButton history_button;
 
-    // Variable pour le swipe
+    // Variables for the swipe.
 
     private RelativeLayout mColorSwipe;
     private ImageView mSmileySwipe;
@@ -63,14 +63,14 @@ public class MainActivity extends AppCompatActivity {
 
     Mood mood;
 
-    // variables pour les sauvegardes
+    // Variables for save.
 
     EditText mComment;
     List<Mood> moodList = new ArrayList<>();
 
 
     /**
-     *
+     * This is the Main page for the MoodTracker application.
      * @param savedInstanceState
      */
     @SuppressLint({"ClickableViewAccessibility", "CommitPrefEdits"})
@@ -80,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         moodList = getList();
+
+        this.mood = new Mood("", 1, new Date());
 
         mColorSwipe = findViewById(R.id.smileycolor);
         mSmileySwipe = findViewById(R.id.smiley_swipe);
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         initializeView();
 
         /**
-         *
+         * This is the part for the swipeGesture.
          */
         smiley_swipe.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeTop() {
@@ -117,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         /**
-         *
+         * it's the comment button for add a comment.
          */
         note_button = (ImageButton) findViewById(R.id.note_button);
         note_button.setOnClickListener(new View.OnClickListener() {
@@ -145,8 +147,6 @@ public class MainActivity extends AppCompatActivity {
                         mComment.getText();
 
                         mood = new Mood (comment, moodSwipe, new Date());
-
-
                     }
                 });
                 alertDialog.setNegativeButton("ANNULER", new DialogInterface.OnClickListener() {
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         /**
-         *
+         * It's the history button for start history activity
          */
         history_button = (ImageButton) findViewById(R.id.history_button);
         history_button.setOnClickListener(new View.OnClickListener() {
@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * It's for the view swipe.
-     * 
+     *
      */
     private void setMoodsScreen() {
         mColorSwipe.setBackgroundColor(getResources().getColor(colorSwipe[moodSwipe]));
@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
 
         // finir la comparaison des dates pour savoir si je remplace ou is j'ajoute un mood
-        if (moodList != null && moodList.size() > 0) {
+        if (moodList != null && moodList.size() > 0 && this.mood != null) {
             Mood mood = moodList.get(moodList.size() - 1);
 
             final Date date = Calendar.getInstance().getTime();
@@ -251,17 +251,19 @@ public class MainActivity extends AppCompatActivity {
             moodCal.setTime(mood.date);
             int moodDay = cal.get(Calendar.DAY_OF_YEAR);
 
-            saveMood(mood);
-
             if (day == moodDay) {
                 //remplacer  dans la list actuelle et ensuite enregistrer dans sharedpreference
                 moodList.set(moodList.size() - 1, this.mood);
-
-                //saveMood(this.mood);
+                saveListSharedPreferences();
 
             } else {
                 saveMood(this.mood);
             }
+        } else if (moodList != null && moodList.size() == 0) {
+            saveMood(this.mood);
+        } else if (moodList == null) {
+            moodList = new ArrayList<>();
+            saveMood(this.mood);
         }
 
         super.onPause();
