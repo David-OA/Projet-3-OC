@@ -27,12 +27,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
-        android:layout_marginBottom="5dp"
-        android:orientation="horizontal"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="0dp">
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="0dp"
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/note_button"
@@ -55,6 +55,17 @@
             android:layout_marginRight="18dp"
             android:background="@null"
             android:src="@drawable/ic_history_black" />
+
+        <!--<ImageButton
+            android:id="@+id/date_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="195dp"
+            android:background="@null"
+            android:src="@drawable/ic_history_black" />-->
     </RelativeLayout>
 
 </RelativeLayout>

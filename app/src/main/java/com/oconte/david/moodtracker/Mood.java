@@ -4,6 +4,9 @@ import android.widget.EditText;
 
 import java.util.Date;
 
+/**
+ * This is mi Mood
+ */
 public class Mood {
 
 

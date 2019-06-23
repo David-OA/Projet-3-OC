@@ -17,13 +17,13 @@ import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.view.PieChartView;
 
+
+/**
+ * This is for the statistics parts.
+ */
 public class statistics extends AppCompatActivity {
 
-    Context context;
-
     List<Mood> moodList = new ArrayList<>();
-
-    int nbreSupperHappy;
 
     PieChartView pieChartView;
 
@@ -36,21 +36,32 @@ public class statistics extends AppCompatActivity {
 
         pieChartView = findViewById(R.id.chart);
 
-        List pieData = new ArrayList<>();
+        List<SliceValue> pieData = new ArrayList<>();
 
         //SliceValue : Float the size of pie chart and Color  wich you can set for that particular pie chart
 
-        pieData.add(new SliceValue(15, getResources().getColor(R.color.banana_yellow)).setLabel("super_happy"));
-        pieData.add(new SliceValue(25, getResources().getColor(R.color.light_sage)).setLabel("happy"));
-        pieData.add(new SliceValue(10, getResources().getColor(R.color.cornflower_blue_65)).setLabel("normal"));
-        pieData.add(new SliceValue(30, getResources().getColor(R.color.warm_grey)).setLabel("disappointed"));
-        pieData.add(new SliceValue(30, getResources().getColor(R.color.faded_red)).setLabel("sad"));
+        int superHappy = pourCentSuperHappy(0);
+        int happy = pourCentSuperHappy(1);
+        int normal = pourCentSuperHappy(2);
+        int disappointed = pourCentSuperHappy(3);
+        int sad = pourCentSuperHappy(4);
+
+
+        pieData.add(new SliceValue(superHappy, getResources().getColor(R.color.banana_yellow)).setLabel("super_happy"));
+        pieData.add(new SliceValue(happy, getResources().getColor(R.color.light_sage)).setLabel("happy"));
+        pieData.add(new SliceValue(normal, getResources().getColor(R.color.cornflower_blue_65)).setLabel("normal"));
+        pieData.add(new SliceValue(disappointed, getResources().getColor(R.color.warm_grey)).setLabel("disappointed"));
+        pieData.add(new SliceValue(sad, getResources().getColor(R.color.faded_red)).setLabel("sad"));
 
         PieChartData pieChartData = new PieChartData(pieData);
         pieChartData.setHasLabels(true).setValueLabelTextSize(14);
         pieChartView.setPieChartData(pieChartData);
     }
 
+    /**
+     * Take information
+     * @return
+     */
     public List<Mood> getList() {
         SharedPreferences setting = getSharedPreferences("Mood", MODE_PRIVATE);
         String moodList = setting.getString("moods", "");
@@ -60,35 +71,26 @@ public class statistics extends AppCompatActivity {
         return list;
     }
 
-    public void pourCentSuperHappy () {
-        100*(nbreSupperHappy() / moodList.size());
+    /**
+     * Calcul pourcentage
+     * @param mood
+     * @return
+     */
+    public int pourCentSuperHappy (int mood) {
+        return (int)(100*((float)nbreSupperHappy(mood) / (float) moodList.size()));
     }
 
-    public int nbreSupperHappy() {
-        for (int i = 0; i >= 0; i ++) {
-            if (moodList.get(0)) {
-                nbreSupperHappy ++;
+    /**
+     * In this parts is for nomber of evry mood
+     * @param mood
+     * @return
+     */
+    public int nbreSupperHappy(int mood) {
+        int count = 0;
+        for (int i = 0; i < moodList.size(); i ++) {
+            if (moodList.get(i).getMood() == mood) {
+                count ++;
             }
-        }
-    }
-
-    public void pourCentHappy () {
-        //reponse = 100* (nbreHappy / moodList.size());
-
-    }
-
-    public void pourCentNormal () {
-        //reponse = 100* (nbreNormal / moodList.size());
-
-    }
-
-    public void pourCentDisappointed () {
-        //reponse = 100* (nbreDisappointed / moodList.size());
-
-    }
-
-    public void pourCentSad () {
-        //reponse = 100* (nbreSad / moodList.size());
-
+        } return count;
     }
 }

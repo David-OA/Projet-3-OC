@@ -16,7 +16,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-
+/**
+ * It's the Adapter for history
+ */
 public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
 
     Context context;
@@ -90,12 +92,6 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
 
         }
 
-        ////////////////////////////////////////////////////////////////////////////////////////////
-        /*LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) viewHolder.week.getLayoutParams();
-        params.height = 120;
-        viewHolder.week.setLayoutParams(params);*/
-        ///////////////////////////////////////////////////////////////////////////////////////////
-
         final Mood mood = getItem(position);
         if (mood.getComment() == null || mood.getComment().isEmpty())
             viewHolder.avatar.setVisibility(View.GONE);
@@ -107,16 +103,18 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
 
         Calendar moodCal = Calendar.getInstance();
         moodCal.setTime(mood.date);
-        int MoodDay = cal.get(Calendar.DAY_OF_YEAR);
+        int MoodDay = moodCal.get(Calendar.DAY_OF_YEAR);
 
-        viewHolder.title.setText(getDay(Day - MoodDay));
+        int diff = Day - MoodDay;
+        if (diff < 7) {
+            viewHolder.title.setText(getDay(diff));
+        }
 
         viewHolder.week.setBackgroundResource(moodSwipe[mood.getMood()]);
 
         viewHolder.week.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, moodWeight[mood.getMood()]));
 
         viewHolder.weight.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1 -moodWeight[mood.getMood()]));
-
 
         viewHolder.avatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,8 +127,8 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
     }
 
     /**
-     * It's for
-     * @param day
+     * It's for see the date in String
+     * @param day the string for differents date
      * @return
      */
     public String getDay(int day) {
@@ -148,8 +146,6 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
         return textDate [day];
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * It's for see just 7 items.
      * @return
@@ -166,6 +162,9 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
     }
 
 
+    /**
+     * It's for view
+     */
     private class HistoryViewHolder {
         TextView title;
         ImageButton avatar;

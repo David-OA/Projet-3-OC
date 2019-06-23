@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
 
     ImageButton note_button;
     ImageButton history_button;
+    ImageButton date_button;
+
+    Date testdate = Calendar.getInstance().getTime();
 
     // Variables for the swipe.
 
@@ -82,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         moodList = getList();
 
         this.mood = new Mood("", 1, new Date());
+        //testdate
 
         mColorSwipe = findViewById(R.id.smileycolor);
         mSmileySwipe = findViewById(R.id.smiley_swipe);
@@ -89,7 +93,9 @@ public class MainActivity extends AppCompatActivity {
         mColorSwipe.setBackgroundColor(getResources().getColor(colorSwipe[moodSwipe]));
         mSmileySwipe.setImageResource(smileySwipe[moodSwipe]);
 
-        Calendar calendar = Calendar.getInstance();
+        final Calendar calendar = Calendar.getInstance();
+
+        noUseApplication();
 
         initializeView();
 
@@ -100,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSwipeTop() {
                 if (moodSwipe < 4) {
                     moodSwipe++;
+                    mood.setMood(moodSwipe);
                     setMoodsScreen();
                 }
             }
@@ -112,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSwipeBottom() {
                 if (moodSwipe > 0) {
                     moodSwipe--;
+                    mood.setMood(moodSwipe);
                     setMoodsScreen();
                 }
             }
@@ -146,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                         String comment = mComment.getText().toString(); //
                         mComment.getText();
 
-                        mood = new Mood (comment, moodSwipe, new Date());
+                        mood.setComment(comment);
                     }
                 });
                 alertDialog.setNegativeButton("ANNULER", new DialogInterface.OnClickListener() {
@@ -177,10 +185,54 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        /**
+         * It's for test
+         */
+        /*date_button = (ImageButton) findViewById(R.id.date_button);
+        date_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(testdate);
+                cal.add(Calendar.DATE, - 1);
+
+                testdate = cal.getTime();
+
+                mood.setDate(testdate);
+
+            }
+        });*/
+
+    }
+
+    public void noUseApplication() {
+        if (moodList != null && moodList.size() > 0 && this.mood != null) {
+            Mood mood = moodList.get(moodList.size() - 1);
+
+            Calendar cal = Calendar.getInstance();
+            int day = cal.get(Calendar.DAY_OF_YEAR);
+
+            Calendar moreCal = Calendar.getInstance();
+            moreCal.setTime(mood.date);
+            int moreDay = moreCal.get(Calendar.DAY_OF_YEAR);
+
+            int diff = day - moreDay;
+
+            for (int i = diff; i > 0; i--) {
+                Calendar newCal = Calendar.getInstance();
+                newCal.add(Calendar.DATE, -i);
+
+                mood = new Mood("", 1, newCal.getTime());
+
+                saveMood(mood);
+            }
+        }
     }
 
     /**
-     *
+     * In this parts
      * @return
      */
     public List<Mood> getList() {
@@ -194,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     *
+     * It's for save thee mood
      * @param mood
      */
     public void saveMood(Mood mood) {
@@ -203,19 +255,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * It's for save the list on the sharedPreferences
      */
     private void saveListSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("Mood",MODE_PRIVATE);
         sharedPreferences.edit().putString("moods", new Gson().toJson(moodList)).apply();
     }
 
-
-    // Methode pour le swipe color et smiley
-
     /**
      * It's for the view swipe.
-     *
      */
     private void setMoodsScreen() {
         mColorSwipe.setBackgroundColor(getResources().getColor(colorSwipe[moodSwipe]));
@@ -237,11 +285,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
 
-        // finir la comparaison des dates pour savoir si je remplace ou is j'ajoute un mood
         if (moodList != null && moodList.size() > 0 && this.mood != null) {
             Mood mood = moodList.get(moodList.size() - 1);
-
-            final Date date = Calendar.getInstance().getTime();
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(this.mood.date);
@@ -249,10 +294,10 @@ public class MainActivity extends AppCompatActivity {
 
             Calendar moodCal = Calendar.getInstance();
             moodCal.setTime(mood.date);
-            int moodDay = cal.get(Calendar.DAY_OF_YEAR);
+            int moodDay = moodCal.get(Calendar.DAY_OF_YEAR);
 
             if (day == moodDay) {
-                //remplacer  dans la list actuelle et ensuite enregistrer dans sharedpreference
+
                 moodList.set(moodList.size() - 1, this.mood);
                 saveListSharedPreferences();
 

@@ -27,13 +27,14 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * The parts for history
+ */
 public class history extends AppCompatActivity {
 
     ListView mList_history_mood;
 
     ImageButton avatar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,14 @@ public class history extends AppCompatActivity {
             Type listType = new TypeToken<ArrayList<Mood>>() {}.getType();
             List<Mood> list = new  Gson().fromJson(moodList, listType);
 
-            return list;
+            List<Mood> listsurted = new ArrayList<>();
+            int count = 0;
+            for (int i = list.size()-1; i >=0 && count <=7; i --) {
+                count ++;
+                listsurted.add(list.get(i));
+            }
+
+            return listsurted;
         }
 
         private void viewListMood(){
