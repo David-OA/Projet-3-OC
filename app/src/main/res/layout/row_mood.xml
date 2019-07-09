@@ -20,7 +20,7 @@
             android:textColor="@android:color/black"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             tools:text="Title" />
 
         <ImageButton
@@ -35,7 +35,8 @@
             android:layout_marginRight="18dp"
             android:layout_marginBottom="18dp"
             android:background="@null"
-            android:src="@drawable/ic_comment_black_48px" />
+            android:src="@drawable/ic_comment_black_48px"
+            tools:ignore="RtlHardcoded" />
     </RelativeLayout>
 
     <View

@@ -1,7 +1,7 @@
-package com.oconte.david.moodtracker;
+package com.oconte.david.moodtracker.Model;
 
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,24 +12,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.oconte.david.moodtracker.Model.Mood;
+import com.oconte.david.moodtracker.R;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 /**
- * It's the Adapter for history
+ * It's the Adapter for History
  */
 public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
 
-    Context context;
+    private Context context;
 
-    ImageButton avatar;
-
-    RelativeLayout week;
-
-    private String mtextDate;
-
-    public int [] moodSwipe = new int[] {
+    private int [] moodSwipe = new int[] {
             R.color.banana_yellow,
             R.color.light_sage,
             R.color.cornflower_blue_65,
@@ -37,9 +34,7 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
             R.color.faded_red
     };
 
-    private SharedPreferences mPreferences;
-
-    public float [] moodWeight = new float[] {
+    private float [] moodWeight = new float[] {
             0f,
             0.2f,
             0.4f,
@@ -47,9 +42,9 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
             0.8f,
     };
 
-    List<Mood> moods;
+    private List<Mood> moods;
 
-    /**
+    /*
      * It's the adapter for listView.
      * @param context
      * @param moods
@@ -61,15 +56,16 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
     }
 
 
-    /**
+    /*
      * It's the different elements of view.
      * @param position
      * @param convertView
      * @param parent
      * @return
      */
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_mood,parent, false);
@@ -80,11 +76,11 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
         if(viewHolder == null){
             viewHolder = new HistoryViewHolder();
 
-            viewHolder.title = (TextView) convertView.findViewById(R.id.title);
+            viewHolder.title = convertView.findViewById(R.id.title);
 
-            viewHolder.avatar = (ImageButton) convertView.findViewById(R.id.avatar);
+            viewHolder.avatar = convertView.findViewById(R.id.avatar);
 
-            viewHolder.week = (RelativeLayout) convertView.findViewById(R.id.week);
+            viewHolder.week = convertView.findViewById(R.id.week);
 
             viewHolder.weight = convertView.findViewById(R.id.weight);
 
@@ -93,6 +89,7 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
         }
 
         final Mood mood = getItem(position);
+
         if (mood.getComment() == null || mood.getComment().isEmpty())
             viewHolder.avatar.setVisibility(View.GONE);
 
@@ -102,7 +99,7 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
         int Day = cal.get(Calendar.DAY_OF_YEAR);
 
         Calendar moodCal = Calendar.getInstance();
-        moodCal.setTime(mood.date);
+        moodCal.setTime(mood.getDate());
         int MoodDay = moodCal.get(Calendar.DAY_OF_YEAR);
 
         int diff = Day - MoodDay;
@@ -126,12 +123,12 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
         return convertView;
     }
 
-    /**
+    /*
      * It's for see the date in String
      * @param day the string for differents date
      * @return
      */
-    public String getDay(int day) {
+    private String getDay(int day) {
         String[] textDate = new String[]{
                 "Aujourd'hui",
                 "Hier",
@@ -146,7 +143,7 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
         return textDate [day];
     }
 
-    /**
+    /*
      * It's for see just 7 items.
      * @return
      */
@@ -162,7 +159,7 @@ public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
     }
 
 
-    /**
+    /*
      * It's for view
      */
     private class HistoryViewHolder {

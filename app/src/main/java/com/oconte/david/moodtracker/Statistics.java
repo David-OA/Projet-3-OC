@@ -1,13 +1,12 @@
 package com.oconte.david.moodtracker;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.oconte.david.moodtracker.Model.Mood;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -19,9 +18,9 @@ import lecho.lib.hellocharts.view.PieChartView;
 
 
 /**
- * This is for the statistics parts.
+ * This is for the Statistics parts.
  */
-public class statistics extends AppCompatActivity {
+public class Statistics extends AppCompatActivity {
 
     List<Mood> moodList = new ArrayList<>();
 
@@ -58,7 +57,7 @@ public class statistics extends AppCompatActivity {
         pieChartView.setPieChartData(pieChartData);
     }
 
-    /**
+    /*
      * Take information
      * @return
      */
@@ -66,12 +65,11 @@ public class statistics extends AppCompatActivity {
         SharedPreferences setting = getSharedPreferences("Mood", MODE_PRIVATE);
         String moodList = setting.getString("moods", "");
         Type listType = new TypeToken<ArrayList<Mood>>() {}.getType();
-        List<Mood> list = new Gson().fromJson(moodList, listType);
 
-        return list;
+        return new Gson().fromJson(moodList, listType);
     }
 
-    /**
+    /*
      * Calcul pourcentage
      * @param mood
      * @return
@@ -80,7 +78,7 @@ public class statistics extends AppCompatActivity {
         return (int)(100*((float)nbreSupperHappy(mood) / (float) moodList.size()));
     }
 
-    /**
+    /*
      * In this parts is for nomber of evry mood
      * @param mood
      * @return

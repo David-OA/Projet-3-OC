@@ -1,47 +1,35 @@
 package com.oconte.david.moodtracker;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import org.w3c.dom.Text;
+import com.oconte.david.moodtracker.Model.HistoryMoodAdapter;
+import com.oconte.david.moodtracker.Model.Mood;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The parts for history
+ * The parts for History
  */
-public class history extends AppCompatActivity {
+public class History extends AppCompatActivity {
 
     ListView mList_history_mood;
-
-    ImageButton avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-            mList_history_mood = (ListView) findViewById(R.id.list_history_mood);
+            mList_history_mood = findViewById(R.id.list_history_mood);
             viewListMood();
 
         }
@@ -56,17 +44,11 @@ public class history extends AppCompatActivity {
         public boolean onOptionsItemSelected(MenuItem item) {
             int i = item.getItemId();
             if(i == R.id.stat_mood) {
-                Intent activity_statistics = new Intent(this,statistics.class );
+                Intent activity_statistics = new Intent(this, Statistics.class );
                 startActivity(activity_statistics);
                 return true;
             }
             return super.onOptionsItemSelected(item);
-        }
-
-        private void viewListName(){
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(history.this, android.R.layout.simple_list_item_1);
-            mList_history_mood.setAdapter(adapter);
         }
 
         public List<Mood> LoadMood() {
@@ -77,6 +59,7 @@ public class history extends AppCompatActivity {
 
             List<Mood> listsurted = new ArrayList<>();
             int count = 0;
+            assert list != null;
             for (int i = list.size()-1; i >=0 && count <=7; i --) {
                 count ++;
                 listsurted.add(list.get(i));
@@ -88,7 +71,7 @@ public class history extends AppCompatActivity {
         private void viewListMood(){
             List<Mood> Moods = LoadMood();
 
-            HistoryMoodAdapter adapter = new HistoryMoodAdapter(history.this, Moods);
+            HistoryMoodAdapter adapter = new HistoryMoodAdapter(History.this, Moods);
             mList_history_mood.setAdapter(adapter);
         }
 }

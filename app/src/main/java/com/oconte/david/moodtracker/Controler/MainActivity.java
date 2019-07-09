@@ -1,45 +1,41 @@
-package com.oconte.david.moodtracker;
+package com.oconte.david.moodtracker.Controler;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.oconte.david.moodtracker.History;
+import com.oconte.david.moodtracker.Model.Mood;
+import com.oconte.david.moodtracker.Model.OnSwipeTouchListener;
+import com.oconte.david.moodtracker.R;
 
-import java.io.InputStream;
 import java.lang.reflect.Type;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 
 
 public class MainActivity extends AppCompatActivity {
 
     ImageButton note_button;
     ImageButton history_button;
-    ImageButton date_button;
 
-    Date testdate = Calendar.getInstance().getTime();
+    //ImageButton date_button;
+    //Date testdate = Calendar.getInstance().getTime();
 
     // Variables for the swipe.
 
@@ -68,13 +64,11 @@ public class MainActivity extends AppCompatActivity {
 
     // Variables for save.
 
-    EditText mComment;
     List<Mood> moodList = new ArrayList<>();
 
 
     /**
      * This is the Main page for the MoodTracker application.
-     * @param savedInstanceState
      */
     @SuppressLint({"ClickableViewAccessibility", "CommitPrefEdits"})
     @Override
@@ -87,19 +81,23 @@ public class MainActivity extends AppCompatActivity {
         this.mood = new Mood("", 1, new Date());
         //testdate
 
+        restartApplication();
+
+
         mColorSwipe = findViewById(R.id.smileycolor);
         mSmileySwipe = findViewById(R.id.smiley_swipe);
 
-        mColorSwipe.setBackgroundColor(getResources().getColor(colorSwipe[moodSwipe]));
-        mSmileySwipe.setImageResource(smileySwipe[moodSwipe]);
+        mColorSwipe.setBackgroundColor(getResources().getColor(colorSwipe[mood.getMood()]));
+        mSmileySwipe.setImageResource(smileySwipe[mood.getMood()]);
 
-        final Calendar calendar = Calendar.getInstance();
 
         noUseApplication();
 
+
         initializeView();
 
-        /**
+
+        /*
          * This is the part for the swipeGesture.
          */
         smiley_swipe.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
@@ -126,18 +124,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        /**
+        /*
          * it's the comment button for add a comment.
          */
-        note_button = (ImageButton) findViewById(R.id.note_button);
+        note_button = findViewById(R.id.note_button);
         note_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 LayoutInflater factory = LayoutInflater.from(MainActivity.this);
-                final View alertDialogView = factory.inflate(R.layout.dialog_comment, null);
+                @SuppressLint("InflateParams") final View alertDialogView = factory.inflate(R.layout.dialog_comment, null);
 
-                final EditText mComment = (EditText) alertDialogView.findViewById(R.id.dialogComment);
+                final EditText mComment = alertDialogView.findViewById(R.id.dialogComment);
 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
                 alertDialog.setMessage("Commentaire");
@@ -174,22 +172,22 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        /**
-         * It's the history button for start history activity
+        /*
+         * It's the History button for start History activity
          */
-        history_button = (ImageButton) findViewById(R.id.history_button);
+        history_button = findViewById(R.id.history_button);
         history_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, history.class);
+                Intent intent = new Intent(MainActivity.this, History.class);
                 startActivity(intent);
             }
         });
 
-        /**
+        /*
          * It's for test
          */
-        /*date_button = (ImageButton) findViewById(R.id.date_button);
+        /*date_button = findViewById(R.id.date_button);
         date_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,6 +205,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void restartApplication() {
+        if (moodList != null && moodList.size() > 0 && this.mood != null) {
+            Mood mood = moodList.get(moodList.size() - 1);
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(this.mood.getDate());
+            int day = cal.get(Calendar.DAY_OF_YEAR);
+
+            Calendar startCal = Calendar.getInstance();
+            startCal.setTime(mood.getDate());
+            int startDay = startCal.get(Calendar.DAY_OF_YEAR);
+
+            if (day == startDay) {
+
+                this.mood = mood;
+            }
+        }
+    }
+
     public void noUseApplication() {
         if (moodList != null && moodList.size() > 0 && this.mood != null) {
             Mood mood = moodList.get(moodList.size() - 1);
@@ -215,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
             int day = cal.get(Calendar.DAY_OF_YEAR);
 
             Calendar moreCal = Calendar.getInstance();
-            moreCal.setTime(mood.date);
+            moreCal.setTime(mood.getDate());
             int moreDay = moreCal.get(Calendar.DAY_OF_YEAR);
 
             int diff = day - moreDay;
@@ -231,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
+    /*
      * In this parts
      * @return
      */
@@ -239,13 +256,12 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences setting = getSharedPreferences("Mood", MODE_PRIVATE);
         String moodList = setting.getString("moods", "");
         Type listType = new TypeToken<ArrayList<Mood>>() {}.getType();
-        List<Mood> list = new  Gson().fromJson(moodList, listType);
 
-        return list;
+        return new  Gson().fromJson(moodList, listType);
     }
 
 
-    /**
+    /*
      * It's for save thee mood
      * @param mood
      */
@@ -254,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
         saveListSharedPreferences();
     }
 
-    /**
+    /*
      * It's for save the list on the sharedPreferences
      */
     private void saveListSharedPreferences() {
@@ -262,7 +278,7 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences.edit().putString("moods", new Gson().toJson(moodList)).apply();
     }
 
-    /**
+    /*
      * It's for the view swipe.
      */
     private void setMoodsScreen() {
@@ -271,15 +287,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /**
+    /*
      * I initialize the view for the swipe
      */
     private void initializeView() {
-        smiley_swipe =(ImageView) findViewById(R.id.smiley_swipe);
+        smiley_swipe = findViewById(R.id.smiley_swipe);
     }
 
 
-    /**
+    /*
      * This parts it's for compare the date of mood and save it or change it before to save it.
      */
     @Override
@@ -289,11 +305,11 @@ public class MainActivity extends AppCompatActivity {
             Mood mood = moodList.get(moodList.size() - 1);
 
             Calendar cal = Calendar.getInstance();
-            cal.setTime(this.mood.date);
+            cal.setTime(this.mood.getDate());
             int day = cal.get(Calendar.DAY_OF_YEAR);
 
             Calendar moodCal = Calendar.getInstance();
-            moodCal.setTime(mood.date);
+            moodCal.setTime(mood.getDate());
             int moodDay = moodCal.get(Calendar.DAY_OF_YEAR);
 
             if (day == moodDay) {

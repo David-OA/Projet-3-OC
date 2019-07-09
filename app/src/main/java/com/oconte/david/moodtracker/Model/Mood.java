@@ -1,6 +1,4 @@
-package com.oconte.david.moodtracker;
-
-import android.widget.EditText;
+package com.oconte.david.moodtracker.Model;
 
 import java.util.Date;
 
@@ -12,15 +10,15 @@ public class Mood {
 
     private String comment;
     private int mood;
-    Date date;
+    private Date date;
 
-    protected Mood(String comment, int mood, Date date) {
+    public Mood(String comment, int mood, Date date) {
         this.comment = comment;
         this.mood = mood;
         this.date = date;
     }
 
-    protected String getComment() {
+    public String getComment() {
         return comment;
     }
 
@@ -40,7 +38,4 @@ public class Mood {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
 }

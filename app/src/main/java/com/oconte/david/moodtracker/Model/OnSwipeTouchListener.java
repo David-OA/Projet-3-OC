@@ -1,11 +1,10 @@
-package com.oconte.david.moodtracker;
+package com.oconte.david.moodtracker.Model;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 
 /**
  * This is for the swipe.
@@ -13,12 +12,13 @@ import android.widget.ImageView;
 public class OnSwipeTouchListener implements View.OnTouchListener {
 
     private final GestureDetector gestureDetector;
-    ImageView smiley_swipe;
 
-    public OnSwipeTouchListener (Context ctx){
+
+    protected OnSwipeTouchListener(Context ctx){
         gestureDetector = new GestureDetector(ctx, new GestureListener());
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         return gestureDetector.onTouchEvent(event);
