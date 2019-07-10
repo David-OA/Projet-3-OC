@@ -1,4 +1,4 @@
-package com.oconte.david.moodtracker.Model;
+package com.oconte.david.moodtracker.model;
 
 import java.util.Date;
 

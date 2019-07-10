@@ -1,4 +1,4 @@
-package com.oconte.david.moodtracker.Controler;
+package com.oconte.david.moodtracker.controller;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -17,9 +17,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.oconte.david.moodtracker.History;
-import com.oconte.david.moodtracker.Model.Mood;
-import com.oconte.david.moodtracker.Model.OnSwipeTouchListener;
+import com.oconte.david.moodtracker.model.Mood;
+import com.oconte.david.moodtracker.model.OnSwipeTouchListener;
 import com.oconte.david.moodtracker.R;
 
 import java.lang.reflect.Type;
@@ -30,9 +29,6 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
-
-    ImageButton note_button;
-    ImageButton history_button;
 
     //ImageButton date_button;
     //Date testdate = Calendar.getInstance().getTime();
@@ -127,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         /*
          * it's the comment button for add a comment.
          */
-        note_button = findViewById(R.id.note_button);
+        ImageButton note_button = findViewById(R.id.note_button);
         note_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,9 +141,6 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.setPositiveButton("VALIDER", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int arg1) {
-
-                        SharedPreferences mPreferences = getSharedPreferences("Mood",MODE_PRIVATE);
-                        SharedPreferences.Editor editor = mPreferences.edit();
 
                         String comment = mComment.getText().toString(); //
                         mComment.getText();
@@ -173,13 +166,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         /*
-         * It's the History button for start History activity
+         * It's the HistoryActivity button for start HistoryActivity activity
          */
-        history_button = findViewById(R.id.history_button);
+        ImageButton history_button = findViewById(R.id.history_button);
         history_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, History.class);
+                Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
                 startActivity(intent);
             }
         });

@@ -1,4 +1,4 @@
-package com.oconte.david.moodtracker.Model;
+package com.oconte.david.moodtracker.model;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

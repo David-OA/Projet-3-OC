@@ -1,4 +1,4 @@
-package com.oconte.david.moodtracker;
+package com.oconte.david.moodtracker.controller;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,17 +10,18 @@ import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.oconte.david.moodtracker.Model.HistoryMoodAdapter;
-import com.oconte.david.moodtracker.Model.Mood;
+import com.oconte.david.moodtracker.util.HistoryMoodAdapter;
+import com.oconte.david.moodtracker.model.Mood;
+import com.oconte.david.moodtracker.R;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The parts for History
+ * The parts for HistoryActivity
  */
-public class History extends AppCompatActivity {
+public class HistoryActivity extends AppCompatActivity {
 
     ListView mList_history_mood;
 
@@ -44,7 +45,7 @@ public class History extends AppCompatActivity {
         public boolean onOptionsItemSelected(MenuItem item) {
             int i = item.getItemId();
             if(i == R.id.stat_mood) {
-                Intent activity_statistics = new Intent(this, Statistics.class );
+                Intent activity_statistics = new Intent(this, StatisticsActivity.class );
                 startActivity(activity_statistics);
                 return true;
             }
@@ -71,7 +72,7 @@ public class History extends AppCompatActivity {
         private void viewListMood(){
             List<Mood> Moods = LoadMood();
 
-            HistoryMoodAdapter adapter = new HistoryMoodAdapter(History.this, Moods);
+            HistoryMoodAdapter adapter = new HistoryMoodAdapter(HistoryActivity.this, Moods);
             mList_history_mood.setAdapter(adapter);
         }
 }

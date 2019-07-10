@@ -1,4 +1,4 @@
-package com.oconte.david.moodtracker.Model;
+package com.oconte.david.moodtracker.util;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,15 +12,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.oconte.david.moodtracker.Model.Mood;
 import com.oconte.david.moodtracker.R;
+import com.oconte.david.moodtracker.model.Mood;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 /**
- * It's the Adapter for History
+ * It's the Adapter for HistoryActivity
  */
 public class HistoryMoodAdapter extends ArrayAdapter<Mood> {
 

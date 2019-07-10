@@ -1,4 +1,4 @@
-package com.oconte.david.moodtracker;
+package com.oconte.david.moodtracker.controller;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -6,7 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.oconte.david.moodtracker.Model.Mood;
+import com.oconte.david.moodtracker.model.Mood;
+import com.oconte.david.moodtracker.R;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -18,9 +19,9 @@ import lecho.lib.hellocharts.view.PieChartView;
 
 
 /**
- * This is for the Statistics parts.
+ * This is for the StatisticsActivity parts.
  */
-public class Statistics extends AppCompatActivity {
+public class StatisticsActivity extends AppCompatActivity {
 
     List<Mood> moodList = new ArrayList<>();
 
