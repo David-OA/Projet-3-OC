@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.oconte.david.moodtracker.model.Mood;
-import com.oconte.david.moodtracker.model.OnSwipeTouchListener;
+import com.oconte.david.moodtracker.util.OnSwipeTouchListener;
 import com.oconte.david.moodtracker.R;
 
 import java.lang.reflect.Type;
